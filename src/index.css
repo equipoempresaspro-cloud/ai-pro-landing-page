@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Barlow Condensed', 'Archivo', sans-serif;
+    --font-heading: 'Archivo', sans-serif;
+    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-data: 'Fira Code', monospace;
+
+    --color-cobalt-950: #061858;
+    --color-cobalt-900: #08227A;
+    --color-cobalt-800: #0B2D9E;
+    --color-cobalt-700: #1540C7;
+    --color-cobalt-200: #DCE6FF;
+    --color-cobalt-100: #EBF1FF;
+
+    --color-sheet-100: #F5F8FD;
+    --color-sheet-200: #EDF2FA;
+    --color-sheet-300: #DFE7F5;
+    --color-rule-sheet: #B8C7E6;
+    --color-rule-cobalt: #2347BA;
+
+    --color-ink-950: #091536;
+    --color-ink-700: #24345E;
+    --color-ink-500: #3E507D;
+
+    --color-signal-700: #A32E00;
+    --color-signal-600: #C23800;
+    --color-signal-500: #F95715;
+    --color-signal-100: #FFF0E8;
+  }
+
+  html {
+    font-family: var(--font-body);
+    background-color: var(--color-sheet-200);
+    color: var(--color-ink-950);
+    caret-color: var(--color-signal-600);
+    text-underline-offset: 0.22em;
+  }
+
+  body {
+    background-color: var(--color-sheet-200);
+    color: var(--color-ink-950);
+    overflow-x: hidden;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-cobalt-800);
+    color: #FFFFFF;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal-600);
+    outline-offset: 2px;
+  }
+}
+
+.font-display-condensed {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.font-heading-arch {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.font-tabular-data {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+}
+
+.measure-prose {
+  max-width: 68ch;
+}
+
+.surface-cobalt {
+  background-color: #0B2D9E;
+}
+
+/* Custom browser scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #DFE7F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0B2D9E;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C23800;
+}
+
+/* Orchestrated circuit trace animation */
+@keyframes circuit-flow {
+  0% {
+    stroke-dashoffset: 24;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.circuit-line-active {
+  stroke-dasharray: 6 6;
+  animation: circuit-flow 0.9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.shadow-ledger {
+  box-shadow: 0 18px 40px -16px rgba(6, 24, 88, 0.24);
+}

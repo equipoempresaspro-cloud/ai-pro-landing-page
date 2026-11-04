@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T20:04:00Z",
+  "title": "Design System: PRO-IA · Sistema Agéntico de Backoffice B2B",
+  "extensions": {
+    "colorMeta": {
+      "cobalt-command": {
+        "role": "primary",
+        "displayName": "Prógresis Cobalt Command",
+        "canonical": "#0B2D9E",
+        "tonalRamp": [
+          "#04103B",
+          "#061858",
+          "#08227A",
+          "#0B2D9E",
+          "#1540C7",
+          "#4A72E8",
+          "#9AB4F8",
+          "#DCE6FF"
+        ]
+      },
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Prógresis Cobalt Deep",
+        "canonical": "#08227A",
+        "tonalRamp": [
+          "#030C2E",
+          "#061858",
+          "#08227A",
+          "#0B2D9E",
+          "#1E4AD4",
+          "#6388F0",
+          "#B3C8FA",
+          "#EBF1FF"
+        ]
+      },
+      "cobalt-midnight": {
+        "role": "neutral",
+        "displayName": "Cobalt Midnight Ink",
+        "canonical": "#091536",
+        "tonalRamp": [
+          "#050B1E",
+          "#091536",
+          "#142554",
+          "#24345E",
+          "#3E507D",
+          "#6B7DA8",
+          "#B8C7E6",
+          "#EDF2FA"
+        ]
+      },
+      "signal-vermilion": {
+        "role": "secondary",
+        "displayName": "Signal Vermilion",
+        "canonical": "#C23800",
+        "tonalRamp": [
+          "#4D1500",
+          "#7A2200",
+          "#9E2D00",
+          "#C23800",
+          "#E04809",
+          "#F95715",
+          "#FF9E75",
+          "#FFF0E8"
+        ]
+      },
+      "sheet-ground": {
+        "role": "neutral",
+        "displayName": "Technical Cobalt Sheet",
+        "canonical": "#EDF2FA",
+        "tonalRamp": [
+          "#1B2A4E",
+          "#324673",
+          "#566D9E",
+          "#8BA0CC",
+          "#B8C7E6",
+          "#DFE7F5",
+          "#EDF2FA",
+          "#F5F8FD"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Condensed",
+        "purpose": "Monumental hero title, ROI figures (-80%, 3x, 0%), and SaaS monthly tariff figures (S/ 350, S/ 490, S/ 690)."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Top-level section headings opening each operational ledger block without kickers."
+      },
+      "title": {
+        "displayName": "Module & Agent Title",
+        "purpose": "Names of the 7 specialized agents, 6 administrative suite modules, and implementation options."
+      },
+      "body": {
+        "displayName": "Institutional Body",
+        "purpose": "Operational descriptions, trigger inputs, autonomous actions, and contractual notes."
+      },
+      "label": {
+        "displayName": "Tabular Serial Label",
+        "purpose": "Serial catalog codes (AG-01..07, MOD-01..06), time deltas (+18s), and SUNAT invoice identifiers."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-ledger",
+        "value": "0 18px 40px -16px rgba(6, 24, 88, 0.24)",
+        "purpose": "Applied to technical ledger sheets resting directly over the deep cobalt command surface."
+      }
+    ],
+    "motion": [
+      {
+        "name": "circuit-flow",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Continuous SVG circuit pulse linking the 7 specialized backoffice agents."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-contrast signal vermilion CTA button used for scheduling El Paso Cero.",
+      "html": "<button class=\"ds-btn-primary\"><span>Agendar El Paso Cero</span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 12px; background: #C23800; color: #FFFFFF; font-family: 'Public Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 16px 24px; border: none; border-radius: 0px; cursor: pointer; transition: background-color 0.18s ease; } .ds-btn-primary:hover { background: #9E2D00; } .ds-btn-primary:focus-visible { outline: 2px solid #C23800; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Cobalt Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Institutional cobalt action button for secondary navigation and trace controls.",
+      "html": "<button class=\"ds-btn-secondary\">Inspeccionar los 7 Agentes</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: #08227A; color: #DCE6FF; font-family: 'Public Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 20px; border: 1px solid #2E56D8; border-radius: 0px; cursor: pointer; transition: background-color 0.18s ease, color 0.18s ease; } .ds-btn-secondary:hover { background: #061858; color: #FFFFFF; } .ds-btn-secondary:focus-visible { outline: 2px solid #C23800; outline-offset: 2px; }"
+    },
+    {
+      "name": "Serial Agent Code Chip",
+      "kind": "chip",
+      "refersTo": "chip-serial",
+      "description": "Tabular monospace identifier badge indexing agents (AG-01..07) and modules (MOD-01..06).",
+      "html": "<span class=\"ds-chip-serial\">AG-01 · ACTIVO</span>",
+      "css": ".ds-chip-serial { display: inline-block; background: #0B2D9E; color: #FFFFFF; font-family: 'Fira Code', monospace; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; padding: 4px 10px; border-radius: 0px; }"
+    },
+    {
+      "name": "Ledger Input Field",
+      "kind": "input",
+      "refersTo": "input-ledger",
+      "description": "Square-cornered technical form input used in the Step Zero dispatch configurator.",
+      "html": "<input class=\"ds-input-ledger\" type=\"text\" placeholder=\"Ej. Distribuidora Comercial SAC\" />",
+      "css": ".ds-input-ledger { width: 100%; background: #F5F8FD; color: #091536; font-family: 'Public Sans', sans-serif; font-size: 14px; padding: 10px 14px; border: 1px solid #B8C7E6; border-radius: 0px; } .ds-input-ledger::placeholder { color: #3E507D; } .ds-input-ledger:focus-visible { outline: 2px solid #C23800; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ruled Agent Ledger Row",
+      "kind": "card",
+      "refersTo": "row-agent",
+      "description": "Structured ledger row pairing a serial agent badge, architectural title, and operational scope.",
+      "html": "<div class=\"ds-row-agent\"><div class=\"ds-row-meta\"><span class=\"ds-row-code\">AG-02</span><strong class=\"ds-row-title\">2. Requerimientos de Clientes</strong></div><p class=\"ds-row-desc\">Para distribuidoras e importadoras: contrasta inventario, verifica costos y cotiza requerimientos recurrentes.</p></div>",
+      "css": ".ds-row-agent { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; background: #F5F8FD; color: #091536; padding: 20px 24px; border: 1px solid #B8C7E6; border-radius: 0px; transition: background-color 0.18s ease; } .ds-row-agent:hover { background: #EDF2FA; } .ds-row-code { display: inline-block; background: #0B2D9E; color: #FFFFFF; font-family: 'Fira Code', monospace; font-size: 12px; font-weight: 600; padding: 2px 8px; } .ds-row-title { display: block; margin-top: 6px; font-family: 'Archivo', sans-serif; font-size: 17px; font-weight: 700; color: #091536; } .ds-row-desc { margin: 0; font-family: 'Public Sans', sans-serif; font-size: 15px; line-height: 1.55; color: #24345E; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Pizarra Ejecutiva de Operaciones & Auditoría B2B",
+    "overview": "El sistema visual de PRO-IA (Prógresis SAC) trata la interfaz como un pliego arquitectónico de control operativo y auditoría financiera B2B. En lugar de recurrir a plantillas SaaS de tarjetas flotantes con bordes redondeados e íconos decorativos, la superficie divide el espacio mediante bloques estructurales en azul cobalto institucional y hojas técnicas regladas de 1px donde los procesos comerciales, logísticos y financieros se auditan paso a paso.\n\nLa densidad está calibrada para gerentes generales y directores de operaciones en Perú que evalúan flujos de órdenes de compra, facturación electrónica SUNAT y conciliación bancaria: cada sección combina titulares condensados de escala dramática con celdas tabulares precisas e índices seriales permanentes (AG-01 a AG-07, MOD-01 a MOD-06, PLAN-01 a PLAN-03).",
+    "keyCharacteristics": [
+      "Contraste estructural entre campos a sangre en Azul Cobalto Institucional (#0B2D9E) y pliegos técnicos tintados en cobalto frío (#EDF2FA / #F5F8FD).",
+      "Geometría ortogonal estricta (0px border-radius) gobernada por costuras visibles de 1px (#B8C7E6 en pliego claro, #2347BA en cobalto).",
+      "Escala tipográfica industrial con Barlow Condensed para titulares y cifras de impacto (-80%, 3×, 0%), Archivo para títulos de módulo, Public Sans para lectura fluida y Fira Code exclusivamente para códigos, tiempos y precios en Soles (S/).",
+      "Cero etiquetas decorativas sobre titulares (sin kickers ni eyebrows): los encabezados abren cada bloque por su propio peso."
+    ],
+    "rules": [
+      {
+        "name": "The Tinted Ground Rule",
+        "body": "Ninguna superficie secundaria ni texto de apoyo utiliza grises neutros puros ni cremas cálidos; todo fondo claro (#EDF2FA, #F5F8FD, #DFE7F5) y todo texto secundario (#24345E, #DCE6FF) lleva tinte azul cobalto.",
+        "section": "colors"
+      },
+      {
+        "name": "The AA Signal Rule",
+        "body": "Cuando el acento naranja/bermellón porta texto blanco, debe usar obligatoriamente #C23800 (o más oscuro) para garantizar una relación de contraste mínima de 4.5:1.",
+        "section": "colors"
+      },
+      {
+        "name": "The Self-Sufficient Heading Rule",
+        "body": "Todo <h1>, <h2> y <h3> debe abrir su contenedor como primer hijo directo; están prohibidos los kickers o eyebrows encima de los titulares.",
+        "section": "typography"
+      },
+      {
+        "name": "The Strict Monospace Rule",
+        "body": "Fira Code se reserva exclusivamente para datos cuantitativos, códigos seriales, marcas de tiempo, documentos SUNAT y montos en Soles (S/), nunca como decoración estilística en párrafos.",
+        "section": "typography"
+      },
+      {
+        "name": "The Ruled Seam Rule",
+        "body": "La separación entre elementos hermanos dentro de una matriz se resuelve con bordes compartidos de 1px (divide-x / divide-y sobre un contenedor con border), nunca con tarjetas sueltas separadas por sombras individuales.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do iniciar cada bloque o celda con el titular (<h1>, <h2>, <h3>) como primer elemento directo y colocar los códigos seriales (AG-01, MOD-01, PLAN-01) al costado o debajo.",
+      "Do mantener todas las superficies claras dentro de la gama fría tintada en cobalto (#EDF2FA, #F5F8FD, #DFE7F5) con bordes #B8C7E6.",
+      "Do usar Fira Code con tabular-nums para todos los precios en Soles (S/ 350, S/ 490, S/ 690, S/ 1,790), porcentajes (-80%, 0%), multiplicadores (3×) y códigos de documento (F001-009482)."
+    ],
+    "donts": [
+      "Don't colocar etiquetas pequeñas en mayúsculas (kickers o eyebrows) encima de los titulares.",
+      "Don't usar tarjetas repetidas con íconos dentro de recuadros redondeados ni anidar tarjetas dentro de tarjetas.",
+      "Don't usar texto blanco sobre naranjas claros (#F95715 o #FF7A33) donde el contraste caiga por debajo de 4.5:1; para texto blanco sobre acento cálido usa siempre #C23800 o #9E2D00.",
+      "Don't usar fondos crema/beige (#F5F3EE, #FAF7F2) ni rejillas decorativas CSS de fondo (linear-gradient grid)."
+    ]
+  }
+}
