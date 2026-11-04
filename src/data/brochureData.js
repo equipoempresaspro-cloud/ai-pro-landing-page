@@ -1,5 +1,5 @@
 export const COMPANY_DATA = {
-  brand: "PRO-IA",
+  brand: "Agent PRO",
   company: "Prógresis SAC",
   companyFull: "Prógresis SAC · Consultoría & Tecnología",
   tagline: "Transformación Digital & Automatización Operativa",
@@ -179,7 +179,7 @@ export const IMPLEMENTATION_MODELS = [
     title: "Solo Agentes IA (Capa Conectora)",
     summary:
       "No necesitas cambiar tu sistema actual. Integramos nuestros agentes vía API a tu ERP existente (SAP, Softland, Spring o desarrollo in-house).",
-    architectureSpec: "WhatsApp / Correo ⇄ 7 Agentes PRO-IA ⇄ API REST / Webhook ⇄ Tu ERP Actual",
+    architectureSpec: "WhatsApp / Correo ⇄ 7 Agentes Agent PRO ⇄ API REST / Webhook ⇄ Tu ERP Actual",
     highlights: [
       "Cero disrupción operativa ni migración costosa",
       "Potencia inmediata sobre tus datos actuales",
@@ -192,7 +192,7 @@ export const IMPLEMENTATION_MODELS = [
     title: "Software Administrativo Integral",
     summary:
       "Para empresas que buscan una solución centralizada y moderna. Incluye todos los módulos administrativos con la capa de agentes ya integrada.",
-    architectureSpec: "WhatsApp / Correo ⇄ 7 Agentes PRO-IA ⇄ 6 Módulos Nativos PRO-IA + PSE SUNAT",
+    architectureSpec: "WhatsApp / Correo ⇄ 7 Agentes Agent PRO ⇄ 6 Módulos Nativos Agent PRO + PSE SUNAT",
     highlights: [
       "Suite completa con Facturación Electrónica SUNAT",
       "Costos mensuales accesibles en modelo SaaS",

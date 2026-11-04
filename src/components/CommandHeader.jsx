@@ -1,84 +1,105 @@
-import React from "react";
-import { COMPANY_DATA } from "../data/brochureData";
-import { PhoneCall, ArrowUpRight } from "lucide-react";
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
 
-export default function CommandHeader({ activePlanLabel }) {
+const NAV_ITEMS = [
+  { href: "#comparativa-erp", label: "ERP vs. Agent PRO" },
+  { href: "#modelos-implementacion", label: "Modelos A / B" },
+  { href: "#circuito-agentes", label: "7 Agentes IA" },
+  { href: "#modulos-suite", label: "6 Módulos Suite" },
+  { href: "#planes-saas", label: "Planes SaaS" },
+];
+
+export default function CommandHeader() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-50 bg-[#08227A] text-white border-b border-[#2347BA]">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Official Prógresis Logo Only */}
-        <a
-          href="#inicio"
-          className="inline-flex items-center shrink-0 focus:outline-none"
-          aria-label="Prógresis SAC - Inicio"
-        >
-          <img
-            src="./progresis-logo.png"
-            alt="Prógresis"
-            className="h-10 sm:h-11 w-auto object-contain block"
-          />
-        </a>
-
-        {/* Ledger Section Navigation */}
-        <nav
-          aria-label="Navegación principal"
-          className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#DCE6FF]"
-        >
+    <header className="sticky top-0 z-50 w-full px-4 pt-4 pb-2 pointer-events-none">
+      <div className="max-w-[1180px] mx-auto pointer-events-auto">
+        <div className="cabecera-capsula flex items-center justify-between px-5 sm:px-7 py-2.5">
           <a
-            href="#comparativa"
-            className="hover:text-white transition-colors py-1"
+            href="#inicio"
+            aria-label="Prógresis SAC — Inicio"
+            className="flex items-center shrink-0 py-0.5"
           >
-            ERP vs. PRO-IA
-          </a>
-          <a
-            href="#implementacion"
-            className="hover:text-white transition-colors py-1"
-          >
-            Modelos A / B
-          </a>
-          <a
-            href="#agentes"
-            className="hover:text-white transition-colors py-1"
-          >
-            Los 7 Agentes
-          </a>
-          <a
-            href="#modulos"
-            className="hover:text-white transition-colors py-1"
-          >
-            6 Módulos Suite
-          </a>
-          <a
-            href="#retorno"
-            className="hover:text-white transition-colors py-1"
-          >
-            ROI & Planes SaaS
-          </a>
-        </nav>
-
-        {/* Direct Action Bar */}
-        <div className="flex items-center gap-3">
-          <a
-            href={`tel:+51${COMPANY_DATA.phone.replace(/\s+/g, "")}`}
-            className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 text-xs font-tabular-data text-[#DCE6FF] hover:text-white border border-[#2E56D8] bg-[#0B2D9E] transition-colors"
-          >
-            <PhoneCall className="w-3.5 h-3.5 text-[#FF7A33]" />
-            <span>{COMPANY_DATA.phone}</span>
+            <img
+              src="./logo-progresis.png"
+              alt="Prógresis SAC · Consultoría y Tecnología"
+              width={254}
+              height={95}
+              className="h-10 sm:h-11 w-auto object-contain block"
+            />
           </a>
 
-          <a
-            href="#paso-cero"
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold bg-[#C23800] hover:bg-[#9E2D00] text-white transition-colors"
+          <nav
+            aria-label="Navegación de secciones Agent PRO"
+            className="hidden lg:flex items-center gap-7"
           >
-            <span>El Paso Cero</span>
-            {activePlanLabel && (
-              <span className="hidden md:inline font-tabular-data text-[11px] bg-[#061858]/50 px-1.5 py-0.5">
-                {activePlanLabel.split("·")[0].trim()}
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="nav-link-progresis"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a href="#paso-cero" className="btn-pill-ml6">
+              <span>
+                <span className="hidden sm:inline">Agendar </span>Paso Cero
               </span>
-            )}
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
+              <span className="icono-circulo" aria-hidden="true">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 7h10v10" />
+                  <path d="M7 17 17 7" />
+                </svg>
+              </span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Abrir menú de navegación"
+              className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#CBD5E1] bg-[#F8FAFC] text-[#274C9B] hover:bg-[#EDF3FC] transition-colors cursor-pointer"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {mobileMenuOpen && (
+          <nav
+            aria-label="Menú móvil"
+            className="lg:hidden mt-2 rounded-[20px] bg-[#FFFFFF] border border-[#CBD5E1] shadow-progresis-md p-4 flex flex-col gap-2"
+          >
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-2.5 rounded-[12px] font-bold text-sm text-[#1E293B] hover:bg-[#EDF3FC] hover:text-[#274C9B] transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        )}
       </div>
     </header>
   );

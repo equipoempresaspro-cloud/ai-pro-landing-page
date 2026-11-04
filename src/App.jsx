@@ -11,8 +11,8 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#EDF2FA] text-[#091536]">
-      <CommandHeader activePlanLabel={selectedPlanLabel} />
+    <div className="min-h-screen flex flex-col bg-[#FFFFFF] text-[#1E293B]">
+      <CommandHeader />
 
       <main className="flex-1">
         <OpeningCommandLedger onSelectQuickPlan={setSelectedPlanLabel} />

@@ -5,11 +5,11 @@ import {
   ROI_METRICS,
 } from "../data/brochureData";
 import {
-  ArrowUpRight,
-  Check,
-  Globe,
+  CheckCircle2,
+  PhoneCall,
   Mail,
-  Phone,
+  Globe,
+  TrendingUp,
   Send,
 } from "lucide-react";
 
@@ -17,26 +17,21 @@ export default function RoiAndTariffLedger({
   selectedPlanLabel,
   onSelectPlan,
 }) {
-  const [avgTicketSoles, setAvgTicketSoles] = useState(2500);
-  const [recoveredOrders, setRecoveredOrders] = useState(2);
-  const [companyInput, setCompanyInput] = useState("");
-  const [erpSituation, setErpSituation] = useState(
-    "Busco renovar todo (Suite Completa + SUNAT)"
+  const [companyName, setCompanyName] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [currentErp, setCurrentErp] = useState(
+    "SAP / Softland / Spring / Propio"
   );
+  const [notes, setNotes] = useState("");
 
-  const monthlyRecoveredRevenue = avgTicketSoles * recoveredOrders;
-  const fullSuiteFee = 690;
-  const netMultiple = Math.max(
-    1,
-    Math.round((monthlyRecoveredRevenue / fullSuiteFee) * 10) / 10
-  );
-
-  const buildWhatsAppHref = () => {
+  const buildWhatsappUrl = () => {
     const text = [
-      `Hola ${COMPANY_DATA.company}, deseo agendar El Paso Cero: Consultoría Estratégica para evaluar PRO-IA.`,
-      `• Plan de interés: ${selectedPlanLabel}`,
-      `• Situación actual: ${erpSituation}`,
-      companyInput.trim() ? `• Empresa / RUC: ${companyInput.trim()}` : null,
+      `Hola equipo de Prógresis SAC, deseo agendar *El Paso Cero: Consultoría Estratégica* para implementar *Agent PRO*.`,
+      companyName ? `• Empresa / RUC: ${companyName}` : null,
+      contactName ? `• Contacto: ${contactName}` : null,
+      `• Modalidad de interés: ${selectedPlanLabel}`,
+      `• Sistema actual: ${currentErp}`,
+      notes ? `• Prioridad operativa: ${notes}` : null,
     ]
       .filter(Boolean)
       .join("\n");
@@ -46,507 +41,622 @@ export default function RoiAndTariffLedger({
     )}`;
   };
 
-  const buildMailtoHref = () => {
-    const subject = `Solicitud El Paso Cero · PRO-IA (${selectedPlanLabel})`;
+  const buildMailtoUrl = () => {
+    const subject = `Solicitud Paso Cero Agent PRO — ${
+      companyName || "Empresa B2B"
+    }`;
     const body = [
-      `Estimado equipo de ${COMPANY_DATA.companyFull}:`,
-      "",
-      `Solicito agendar El Paso Cero (Consultoría Estratégica) para evaluar la implementación de PRO-IA.`,
-      "",
-      `Plan seleccionado: ${selectedPlanLabel}`,
-      `Situación operativa: ${erpSituation}`,
-      companyInput.trim() ? `Empresa: ${companyInput.trim()}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
+      `Estimado equipo de Prógresis SAC,`,
+      ``,
+      `Solicito agendar El Paso Cero (Consultoría Estratégica) para evaluar Agent PRO en nuestra operación.`,
+      ``,
+      `Empresa / RUC: ${companyName || "Por especificar"}`,
+      `Contacto y Cargo: ${contactName || "Por especificar"}`,
+      `Modalidad seleccionada: ${selectedPlanLabel}`,
+      `Sistema ERP actual: ${currentErp}`,
+      `Comentarios adicionales: ${notes || "Sin comentarios adicionales"}`,
+    ].join("\n");
 
     return `mailto:${COMPANY_DATA.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    window.open(buildWhatsappUrl(), "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <div className="bg-[#EDF2FA] text-[#091536]">
-      {/* Slide 6: Financial Impact & Measurable ROI */}
+    <div>
+      {/* SECCIÓN 1: Un Retorno de Inversión Medible desde el Mes 1 & Planes SaaS */}
       <section
-        id="retorno"
-        className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-16 lg:py-24 border-b border-[#B8C7E6]"
+        id="planes-saas"
+        className="py-16 lg:py-24 bg-[#FFFFFF] border-b border-[#E2E8F0]"
       >
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[#B8C7E6]">
-          <div>
-            <h2 className="font-display-condensed font-extrabold text-4xl sm:text-5xl text-[#091536] tracking-tight">
-              Retorno de Inversión Medible desde el Mes 1
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-[#24345E] measure-prose">
-              Impacto financiero y operativo directo al eliminar los cuellos de botella en cotizaciones, procesamiento de órdenes y{"\u00A0"}facturación.
-            </p>
-          </div>
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          {/* Bloque de ROI Medible (Tarjetas de primer nivel, sin anidar) */}
+          <div className="mb-16">
+            <div className="max-w-3xl">
+              <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#274C9B] leading-tight">
+                Un Retorno de Inversión Medible desde el Mes 1
+              </h2>
+              <p className="mt-3 text-base sm:text-lg text-[#334155] leading-relaxed">
+                Automatizar con{" "}
+                <strong className="font-bold text-[#1E293B]">Agent PRO</strong>{" "}
+                no es un gasto informático: es liberar la capacidad comercial y
+                financiera de tu empresa.
+              </p>
+            </div>
 
-          <div className="font-tabular-data text-xs font-semibold text-[#0B2D9E] bg-[#DCE6FF] border border-[#0B2D9E]/30 px-4 py-2.5 shrink-0">
-            IMPACTO FINANCIERO · MES 1
-          </div>
-        </div>
-
-        {/* 3 Ruled Ledger Columns + Interactive Amortization Sheet */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 border border-[#B8C7E6] bg-[#F5F8FD] divide-y lg:divide-y-0 lg:divide-x divide-[#B8C7E6]">
-          {ROI_METRICS.map((item, idx) => (
-            <div
-              key={item.code}
-              className="lg:col-span-3 p-6 sm:p-8 flex flex-col justify-between"
-            >
-              <div>
-                <h3 className="font-heading-arch font-bold text-lg text-[#091536]">
-                  {item.title}
-                </h3>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {ROI_METRICS.map((metric) => (
                 <div
-                  className={`mt-3 font-display-condensed font-extrabold text-6xl sm:text-7xl tracking-tight ${
-                    idx === 0
-                      ? "text-[#0B2D9E]"
-                      : idx === 1
-                      ? "text-[#091536]"
-                      : "text-[#C23800]"
-                  }`}
+                  key={metric.code}
+                  className="rounded-[24px] bg-[#F8FAFC] border border-[#CBD5E1] p-6 sm:p-7 shadow-progresis-sm"
                 >
-                  {item.figure}
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-display-progresis font-bold text-lg text-[#1E293B]">
+                      {metric.title}
+                    </h3>
+                    <span className="font-tabular-data text-xs font-extrabold px-2.5 py-1 rounded-full bg-[#EDF3FC] text-[#274C9B] border border-[#CBD5E1]">
+                      {metric.code}
+                    </span>
+                  </div>
+                  <p className="mt-3 font-display-progresis font-bold text-4xl sm:text-5xl text-[#274C9B] font-tabular-data leading-none">
+                    {metric.figure}
+                  </p>
+                  <p className="mt-3 text-sm text-[#334155] leading-relaxed">
+                    {metric.description}
+                  </p>
                 </div>
-                <p className="mt-4 text-sm sm:text-base text-[#24345E] leading-relaxed">
-                  {item.description}
+              ))}
+            </div>
+
+            <div className="mt-6 rounded-[20px] bg-[#FFF5EF] border border-[#FDBA74] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-start sm:items-center gap-3">
+                <TrendingUp className="w-5 h-5 text-[#9A3412] shrink-0 mt-0.5 sm:mt-0" />
+                <p className="text-sm sm:text-base font-bold text-[#1E293B]">
+                  El ROI es directo: con recuperar{" "}
+                  <span className="text-[#9A3412] underline">
+                    1 o 2 ventas perdidas por respuesta tardía al mes
+                  </span>
+                  , el costo de Agent PRO queda 100% amortizado.
                 </p>
               </div>
-
-              <div className="mt-6 pt-3 border-t border-[#B8C7E6] flex items-center justify-between">
-                <span className="font-tabular-data text-xs text-[#24345E]">
-                  {item.code}
-                </span>
-                <span className="font-tabular-data text-xs font-semibold text-[#091536]">
-                  VERIFICADO EN OPERACIÓN
-                </span>
-              </div>
-            </div>
-          ))}
-
-          {/* 4th Column: Interactive B2B Recovery Simulator */}
-          <div className="lg:col-span-3 p-6 sm:p-8 bg-[#091536] text-white flex flex-col justify-between">
-            <div>
-              <h3 className="font-heading-arch font-bold text-base sm:text-lg text-white">
-                Simulador de Amortización Mensual
-              </h3>
-              <p className="mt-1 text-xs text-[#DCE6FF]">
-                Estima cómo 1 o 2 pedidos B2B recuperados por respuesta rápida cubren la inversión{"\u00A0"}mensual.
-              </p>
-
-              <div className="mt-5 space-y-4">
-                <div>
-                  <label
-                    htmlFor="ticket-range"
-                    className="flex items-center justify-between text-xs text-[#DCE6FF]"
-                  >
-                    <span>Ticket promedio B2B</span>
-                    <span className="font-tabular-data font-bold text-white">
-                      S/ {avgTicketSoles.toLocaleString("es-PE")}
-                    </span>
-                  </label>
-                  <input
-                    id="ticket-range"
-                    type="range"
-                    min={800}
-                    max={10000}
-                    step={200}
-                    value={avgTicketSoles}
-                    onChange={(e) => setAvgTicketSoles(Number(e.target.value))}
-                    className="mt-2 w-full accent-[#FF7A33] cursor-pointer"
-                  />
-                </div>
-
-                <div>
-                  <span className="block text-xs text-[#DCE6FF]">
-                    Ventas recuperadas al mes
-                  </span>
-                  <div className="mt-2 grid grid-cols-3 gap-2">
-                    {[1, 2, 3].map((count) => (
-                      <button
-                        key={count}
-                        type="button"
-                        onClick={() => setRecoveredOrders(count)}
-                        className={`py-1.5 font-tabular-data text-xs font-semibold border transition-colors cursor-pointer ${
-                          recoveredOrders === count
-                            ? "bg-[#C23800] text-white border-[#C23800]"
-                            : "bg-[#0B2D9E] text-white border-[#2E56D8]"
-                        }`}
-                      >
-                        {count} {count === 1 ? "venta" : "ventas"}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-[#1E326E]">
-              <div className="flex items-baseline justify-between">
-                <span className="text-xs text-[#DCE6FF]">
-                  Venta recuperada/mes:
-                </span>
-                <span className="font-tabular-data font-bold text-lg text-[#FFD2B8]">
-                  S/ {monthlyRecoveredRevenue.toLocaleString("es-PE")}
-                </span>
-              </div>
-              <div className="mt-1 text-xs font-tabular-data text-white">
-                Cubre {netMultiple}× el plan Software Completo (S/ 690)
-              </div>
+              <span className="font-tabular-data text-xs font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-[#FFFFFF] text-[#9A3412] border border-[#FDBA74] shrink-0 self-start sm:self-auto">
+                Amortización Mes 1
+              </span>
             </div>
           </div>
-        </div>
 
-        {/* Brochure Slide 6 Bottom Callout Bar */}
-        <div className="mt-6 px-6 py-4 bg-[#DCE6FF] border border-[#0B2D9E]/30 flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm sm:text-base font-semibold text-[#0B2D9E]">
-            Con recuperar 1 o 2 ventas perdidas por respuesta tardía al mes, el costo de PRO-IA queda 100%{"\u00A0"}amortizado.
-          </p>
-          <span className="font-tabular-data text-xs font-bold text-[#0B2D9E] bg-[#F5F8FD] border border-[#0B2D9E]/30 px-3 py-1">
-            ROI INMEDIATO
-          </span>
-        </div>
-      </section>
-
-      {/* Slide 7: Monthly SaaS Rental Plans */}
-      <section
-        id="planes"
-        className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-16 lg:py-24"
-      >
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[#B8C7E6]">
-          <div>
-            <h2 className="font-display-condensed font-extrabold text-4xl sm:text-5xl text-[#091536] tracking-tight">
+          {/* Encabezado de Planes en Alquiler Mensual (SaaS) */}
+          <div className="max-w-3xl mb-10">
+            <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#274C9B] leading-tight">
               Planes en Alquiler Mensual (SaaS)
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-[#24345E] measure-prose">
-              Propuesta económica transparente en Soles adaptada al alcance operativo que tu empresa requiere{"\u00A0"}hoy.
+            <p className="mt-3 text-base sm:text-lg text-[#334155] leading-relaxed">
+              Una fracción de lo que cuesta contratar más personal
+              administrativo, con disponibilidad 24/7.
             </p>
           </div>
 
-          <div className="font-tabular-data text-xs font-semibold text-[#091536] bg-[#DFE7F5] border border-[#B8C7E6] px-4 py-2.5 shrink-0">
-            PROPUESTA ECONÓMICA · ALQUILER MENSUAL
-          </div>
-        </div>
+          {/* Tarjetas de los 3 Planes SaaS */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            {PRICING_PLANS.map((plan) => {
+              const planFullString = `${plan.name} · ${plan.price} ${plan.period}`;
+              const isSelected = selectedPlanLabel === planFullString;
+              const isSuiteTotal = plan.id === "software-completo";
 
-        {/* 3-Column Ruled Tariff Schedule */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 border border-[#B8C7E6] divide-y lg:divide-y-0 lg:divide-x divide-[#B8C7E6] bg-[#F5F8FD]">
-          {PRICING_PLANS.map((plan) => {
-            const fullPlanString = `${plan.name} · ${plan.price} ${plan.period}`;
-            const isSelected = selectedPlanLabel === fullPlanString;
-
-            return (
-              <div
-                key={plan.id}
-                onClick={() => onSelectPlan && onSelectPlan(fullPlanString)}
-                className={`p-6 sm:p-8 lg:p-10 flex flex-col justify-between transition-colors cursor-pointer ${
-                  isSelected
-                    ? "bg-[#DCE6FF]/65"
-                    : "bg-[#F5F8FD] hover:bg-[#EDF2FA]"
-                }`}
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-heading-arch font-bold text-2xl text-[#091536]">
-                      {plan.name}
-                    </h3>
-                    <span
-                      className={`font-tabular-data text-xs font-bold px-2.5 py-1 shrink-0 ${
-                        plan.accent === "signal"
-                          ? "bg-[#C23800] text-white"
-                          : plan.accent === "cobalt"
-                          ? "bg-[#0B2D9E] text-white"
-                          : "bg-[#DFE7F5] text-[#091536] border border-[#B8C7E6]"
-                      }`}
-                    >
-                      {plan.badge}
-                    </span>
-                  </div>
-
-                  <p className="mt-2.5 text-sm text-[#24345E] min-h-[2.75rem]">
-                    {plan.subtitle}
-                  </p>
-
-                  {/* Price Figure */}
-                  <div className="mt-6 py-5 border-y border-[#B8C7E6] flex items-baseline gap-2">
-                    <span
-                      className={`font-display-condensed font-extrabold text-5xl sm:text-6xl tracking-tight ${
-                        plan.accent === "signal"
-                          ? "text-[#091536]"
-                          : "text-[#0B2D9E]"
-                      }`}
-                    >
-                      {plan.price}
-                    </span>
-                    <span className="font-tabular-data text-sm font-medium text-[#24345E]">
-                      {plan.period}
-                    </span>
-                  </div>
-
-                  {/* Feature List */}
-                  <ul className="mt-6 space-y-3.5">
-                    {plan.features.map((feat) => (
-                      <li
-                        key={feat}
-                        className="flex items-start gap-3 text-sm sm:text-base text-[#091536]"
+              return (
+                <article
+                  key={plan.id}
+                  className={`rounded-[28px] p-7 sm:p-8 flex flex-col justify-between transition-all ${
+                    isSuiteTotal
+                      ? "surface-navy-gradient text-[#FFFFFF] border-2 border-[#274C9B] shadow-progresis-lg"
+                      : "bg-[#FFFFFF] text-[#1E293B] border border-[#CBD5E1] shadow-progresis-md"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3
+                        className={`font-display-progresis font-bold text-2xl ${
+                          isSuiteTotal ? "text-[#FFFFFF]" : "text-[#274C9B]"
+                        }`}
                       >
-                        <span
-                          className={`mt-0.5 inline-flex items-center justify-center w-5 h-5 text-white shrink-0 ${
-                            plan.accent === "signal"
-                              ? "bg-[#C23800]"
-                              : "bg-[#0B2D9E]"
-                          }`}
-                          aria-hidden="true"
+                        {plan.name}
+                      </h3>
+                      <span
+                        className={`font-tabular-data text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full ${
+                          isSuiteTotal
+                            ? "bg-[#C2410C] text-[#FFFFFF]"
+                            : "bg-[#EDF3FC] text-[#274C9B] border border-[#CBD5E1]"
+                        }`}
+                      >
+                        {plan.badge}
+                      </span>
+                    </div>
+
+                    <p
+                      className={`mt-3 text-sm leading-relaxed ${
+                        isSuiteTotal ? "text-[#E2EAF6]" : "text-[#334155]"
+                      }`}
+                    >
+                      {plan.subtitle}
+                    </p>
+
+                    <div
+                      className={`mt-6 pb-6 border-b flex items-baseline gap-2 ${
+                        isSuiteTotal ? "border-[#334E85]" : "border-[#E2E8F0]"
+                      }`}
+                    >
+                      <span
+                        className={`font-display-progresis font-bold text-4xl sm:text-5xl font-tabular-data leading-none ${
+                          isSuiteTotal ? "text-[#FFFFFF]" : "text-[#274C9B]"
+                        }`}
+                      >
+                        {plan.price}
+                      </span>
+                      <span
+                        className={`font-tabular-data text-sm font-bold ${
+                          isSuiteTotal ? "text-[#7DD3FC]" : "text-[#475569]"
+                        }`}
+                      >
+                        {plan.period}
+                      </span>
+                    </div>
+
+                    <ul className="mt-6 space-y-3">
+                      {plan.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex items-start gap-2.5 text-sm sm:text-base font-medium"
                         >
-                          <Check className="w-3.5 h-3.5" />
+                          <CheckCircle2
+                            className={`w-5 h-5 shrink-0 mt-0.5 ${
+                              isSuiteTotal
+                                ? "text-[#7DD3FC]"
+                                : "text-[#C2410C]"
+                            }`}
+                          />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-8 pt-4">
+                    <a
+                      href="#paso-cero"
+                      onClick={() => onSelectPlan(planFullString)}
+                      className={
+                        isSuiteTotal || isSelected
+                          ? "btn-pill-ml6 w-full justify-between"
+                          : "btn-secundario-ml6 w-full"
+                      }
+                    >
+                      <span>
+                        {isSelected
+                          ? "Modalidad Seleccionada"
+                          : `Elegir ${plan.name}`}
+                      </span>
+                      {(isSuiteTotal || isSelected) && (
+                        <span className="icono-circulo" aria-hidden="true">
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M7 7h10v10" />
+                            <path d="M7 17 17 7" />
+                          </svg>
                         </span>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      )}
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
 
-                <div className="mt-8 pt-5 border-t border-[#B8C7E6]">
-                  <a
-                    href="#paso-cero"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (onSelectPlan) onSelectPlan(fullPlanString);
-                    }}
-                    className={`w-full inline-flex items-center justify-between px-5 py-3.5 text-sm font-semibold transition-colors ${
-                      plan.accent === "signal"
-                        ? "bg-[#C23800] hover:bg-[#9E2D00] text-white"
-                        : "bg-[#0B2D9E] hover:bg-[#08227A] text-white"
-                    }`}
-                  >
-                    <span>
-                      {isSelected
-                        ? "Plan seleccionado · Ir a El Paso Cero"
-                        : `Seleccionar ${plan.name}`}
-                    </span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Brochure Slide 7 Implementation & Meta Consumption Ledger Block */}
-        <div className="mt-6 border border-[#B8C7E6] bg-[#F5F8FD] divide-y divide-[#B8C7E6]">
-          <div className="p-6 sm:px-8 sm:py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          {/* Nota de Implementación, Configuración y Puesta a Punto */}
+          <div className="mt-8 rounded-[24px] bg-[#EDF3FC] border border-[#CBD5E1] p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h3 className="font-heading-arch font-bold text-lg sm:text-xl text-[#091536]">
-                Implementación, Configuración y Puesta a Punto:{" "}
-                <span className="text-[#0B2D9E] font-tabular-data">
-                  Desde S/ 1,790 + IGV (Pago Único)
-                </span>
+              <h3 className="font-display-progresis font-bold text-xl sm:text-2xl text-[#274C9B]">
+                Implementación, Configuración y Puesta a Punto: Desde S/ 1,790 +
+                IGV (Pago Único)
               </h3>
-              <p className="mt-1.5 text-sm text-[#24345E]">
-                El plazo e inversión se correlacionan con la complejidad y alcance del modelo de negocio (varía entre 15 días y 3{"\u00A0"}meses).
+              <p className="mt-2 text-sm sm:text-base text-[#1E293B]">
+                Plazo variable entre{" "}
+                <strong className="font-bold">15 días y 3 meses</strong> según
+                complejidad y alcance.{" "}
+                <span className="text-[#334155]">
+                  *Los consumos de Meta (WhatsApp Cloud API) son facturados por
+                  separado según consumo oficial.
+                </span>
               </p>
             </div>
-
-            <span className="font-tabular-data text-xs font-bold text-[#0B2D9E] bg-[#DCE6FF] border border-[#0B2D9E]/30 px-3.5 py-2 shrink-0 self-start lg:self-center">
-              15 DÍAS A 3 MESES
+            <span className="font-tabular-data text-xs font-extrabold uppercase tracking-wider px-4 py-2 rounded-full bg-[#FFFFFF] text-[#274C9B] border border-[#CBD5E1] shrink-0 self-start lg:self-auto">
+              Despliegue Llave en Mano
             </span>
-          </div>
-
-          <div className="px-6 sm:px-8 py-4 bg-[#DFE7F5] text-xs sm:text-sm text-[#24345E]">
-            <strong className="font-semibold text-[#091536]">
-              Consumos de Meta (WhatsApp Cloud API):
-            </strong>{" "}
-            Si los flujos del cliente incurren en gastos oficiales de mensajería de Meta, estos se facturan por separado según{"\u00A0"}consumo.
           </div>
         </div>
       </section>
 
-      {/* Slide 8: Step Zero Strategic Consultancy & Closing Command Block */}
-      <footer
+      {/* SECCIÓN 2: El Paso Cero — Estilo exacto .seccion-contacto de progresissac.com */}
+      <section
         id="paso-cero"
-        className="surface-cobalt text-white border-t border-[#2347BA]"
+        className="py-16 lg:py-24 surface-blue-gradient text-[#FFFFFF]"
       >
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-16 lg:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-            {/* Left 7 Columns: Brochure Slide 8 Headline & Contact Ledger */}
-            <div className="lg:col-span-7">
-              <h2 className="font-display-condensed font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[0.98]">
-                Moderniza la Operación de tu Empresa con PRO-IA
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Columna Izquierda: Explicación del Paso Cero & Canales Directos (.canales-lista de progresissac.com) */}
+            <div className="lg:col-span-5">
+              <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#FFFFFF] leading-tight">
+                El Paso Cero: Consultoría Estratégica
               </h2>
-
-              <p className="mt-5 text-lg sm:text-xl text-[#DCE6FF] leading-relaxed">
-                Auditamos tus flujos de trabajo antes del despliegue para asegurar que la inteligencia artificial resuelva problemas reales y genere{"\u00A0"}retorno{"\u00A0"}medible.
+              <p className="mt-4 text-base sm:text-lg text-[#E2EAF6] leading-relaxed">
+                No vendemos software enlatado. Antes de desplegar cualquier
+                agente, nuestro equipo de consultores audita los flujos de
+                trabajo de tu empresa, identifica los cuellos de botella reales
+                y diseña la arquitectura exacta que tu operación necesita para
+                escalar.
               </p>
 
-              <div className="mt-6 inline-flex items-center gap-3 px-4 py-2 bg-[#08227A] border border-[#2E56D8]">
-                <span
-                  className="w-2.5 h-2.5 bg-[#FF7A33]"
-                  aria-hidden="true"
-                />
-                <span className="text-xs sm:text-sm font-semibold text-white">
-                  El Paso Cero: Consultoría Estratégica · Diagnóstico Operativo B2B
-                </span>
-              </div>
-
-              {/* Brochure Slide 8 Official Contact Strip */}
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 border border-[#2E56D8] bg-[#08227A] divide-y sm:divide-y-0 sm:divide-x divide-[#2E56D8]">
+              <div className="mt-8 space-y-4">
                 <a
                   href={`https://wa.me/${COMPANY_DATA.whatsappIntl}`}
                   target="_blank"
-                  rel="noreferrer"
-                  className="p-5 hover:bg-[#061858] transition-colors flex flex-col justify-between gap-2"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-5 transition-all"
                 >
-                  <div className="flex items-center justify-between text-xs text-[#DCE6FF]">
-                    <span>TELÉFONO / WHATSAPP</span>
-                    <Phone className="w-4 h-4 text-[#FF7A33]" />
-                  </div>
-                  <div className="font-tabular-data font-bold text-base sm:text-lg text-white">
-                    {COMPANY_DATA.phone}
+                  <span className="w-12 h-12 rounded-[14px] bg-[#C2410C] text-[#FFFFFF] flex items-center justify-center shrink-0">
+                    <PhoneCall className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
+                      Teléfono / WhatsApp Directo
+                    </p>
+                    <p className="font-display-progresis font-bold text-xl text-[#FFFFFF] font-tabular-data mt-0.5">
+                      {COMPANY_DATA.phone}
+                    </p>
                   </div>
                 </a>
 
                 <a
                   href={`mailto:${COMPANY_DATA.email}`}
-                  className="p-5 hover:bg-[#061858] transition-colors flex flex-col justify-between gap-2"
+                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-5 transition-all"
                 >
-                  <div className="flex items-center justify-between text-xs text-[#DCE6FF]">
-                    <span>CORREO ELECTRÓNICO</span>
-                    <Mail className="w-4 h-4 text-[#FF7A33]" />
-                  </div>
-                  <div className="font-semibold text-sm text-white break-all">
-                    {COMPANY_DATA.email}
+                  <span className="w-12 h-12 rounded-[14px] bg-[#274C9B] border border-[#7DD3FC] text-[#FFFFFF] flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
+                      Correo Electrónico Corporativo
+                    </p>
+                    <p className="font-bold text-sm sm:text-base text-[#FFFFFF] truncate mt-0.5">
+                      {COMPANY_DATA.email}
+                    </p>
                   </div>
                 </a>
 
                 <a
                   href={COMPANY_DATA.websiteUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  className="p-5 hover:bg-[#061858] transition-colors flex flex-col justify-between gap-2"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-5 transition-all"
                 >
-                  <div className="flex items-center justify-between text-xs text-[#DCE6FF]">
-                    <span>PÁGINA WEB</span>
-                    <Globe className="w-4 h-4 text-[#FF7A33]" />
-                  </div>
-                  <div className="font-semibold text-base text-white">
-                    {COMPANY_DATA.website}
+                  <span className="w-12 h-12 rounded-[14px] bg-[#274C9B] border border-[#7DD3FC] text-[#FFFFFF] flex items-center justify-center shrink-0">
+                    <Globe className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
+                      Web Corporativa Oficial
+                    </p>
+                    <p className="font-bold text-base text-[#FFFFFF] mt-0.5">
+                      {COMPANY_DATA.website}
+                    </p>
                   </div>
                 </a>
               </div>
             </div>
 
-            {/* Right 5 Columns: Direct Step Zero Dispatch Configurator */}
-            <div className="lg:col-span-5 bg-[#EDF2FA] text-[#091536] border border-[#B8C7E6] p-6 sm:p-8 shadow-ledger">
-              <h3 className="font-heading-arch font-bold text-xl sm:text-2xl text-[#091536]">
-                Solicitar El Paso Cero
-              </h3>
-              <p className="mt-1.5 text-xs sm:text-sm text-[#24345E]">
-                Configura tu requerimiento B2B para iniciar la auditoría de flujos por WhatsApp o correo con{"\u00A0"}Prógresis{"\u00A0"}SAC.
-              </p>
+            {/* Columna Derecha: Tarjeta Blanca de Formulario (.formulario-card de progresissac.com) */}
+            <div className="lg:col-span-7">
+              <form
+                onSubmit={handleFormSubmit}
+                className="rounded-[28px] bg-[#FFFFFF] text-[#1E293B] p-7 sm:p-10 shadow-progresis-lg border border-[#CBD5E1]"
+              >
+                <h3 className="font-display-progresis font-bold text-2xl sm:text-3xl text-[#274C9B]">
+                  Agenda tu Diagnóstico Operativo
+                </h3>
+                <p className="mt-2 text-sm sm:text-base text-[#334155]">
+                  Completa los datos de tu operación para iniciar la auditoría
+                  del Paso Cero por WhatsApp o correo electrónico.
+                </p>
 
-              <div className="mt-6 space-y-4">
-                <div>
-                  <label
-                    htmlFor="plan-select"
-                    className="block text-xs font-semibold text-[#091536]"
-                  >
-                    Plan o Modalidad de Interés
-                  </label>
-                  <select
-                    id="plan-select"
-                    value={selectedPlanLabel}
-                    onChange={(e) =>
-                      onSelectPlan && onSelectPlan(e.target.value)
-                    }
-                    className="mt-1.5 w-full px-3.5 py-2.5 bg-[#F5F8FD] border border-[#B8C7E6] text-sm font-medium text-[#091536]"
-                  >
-                    {PRICING_PLANS.map((p) => {
-                      const val = `${p.name} · ${p.price} ${p.period}`;
-                      return (
-                        <option key={p.id} value={val}>
-                          {val}
-                        </option>
-                      );
-                    })}
-                    <option value="Vibe Coding & Agentes a la Medida">
-                      Vibe Coding & Agentes a la Medida
-                    </option>
-                  </select>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="empresa-input"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-2"
+                    >
+                      Empresa o RUC
+                    </label>
+                    <input
+                      id="empresa-input"
+                      type="text"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                      placeholder="Ej. Distribuidora Industrial SAC"
+                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-3 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="contacto-input"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-2"
+                    >
+                      Nombre y Cargo
+                    </label>
+                    <input
+                      id="contacto-input"
+                      type="text"
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      placeholder="Ej. Carlos Mendoza · Gerente General"
+                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-3 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="erp-select"
-                    className="block text-xs font-semibold text-[#091536]"
-                  >
-                    Infraestructura Actual
-                  </label>
-                  <select
-                    id="erp-select"
-                    value={erpSituation}
-                    onChange={(e) => setErpSituation(e.target.value)}
-                    className="mt-1.5 w-full px-3.5 py-2.5 bg-[#F5F8FD] border border-[#B8C7E6] text-sm font-medium text-[#091536]"
-                  >
-                    <option value="Busco renovar todo (Suite Completa + SUNAT)">
-                      Opción B: Busco renovar sistema (Suite Completa + SUNAT)
-                    </option>
-                    <option value="Ya tengo ERP (SAP, Softland, Spring o propio) y busco conectar vía API">
-                      Opción A: Ya tengo ERP y busco conectar agentes vía API
-                    </option>
-                    <option value="Operamos con Excel / procesos manuales y WhatsApp">
-                      Operamos con Excel / procesos manuales y WhatsApp
-                    </option>
-                  </select>
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="plan-select"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-2"
+                    >
+                      Modalidad Agent PRO
+                    </label>
+                    <select
+                      id="plan-select"
+                      value={selectedPlanLabel}
+                      onChange={(e) => onSelectPlan(e.target.value)}
+                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-3 text-sm font-semibold text-[#1E293B] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                    >
+                      <option value="Software Completo · S/ 690 + IGV / mes">
+                        Software Completo · S/ 690 + IGV / mes
+                      </option>
+                      <option value="Sólo Agentes (API) · S/ 490 + IGV / mes">
+                        Sólo Agentes (API) · S/ 490 + IGV / mes
+                      </option>
+                      <option value="Módulos + Agente 1 · S/ 350 + IGV / mes">
+                        Módulos + Agente 1 · S/ 350 + IGV / mes
+                      </option>
+                      <option value="Vibe Coding & Agentes a la Medida · Evaluación Paso Cero">
+                        Vibe Coding & Agentes a la Medida
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="erp-select"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-2"
+                    >
+                      Sistema Actual en tu Empresa
+                    </label>
+                    <select
+                      id="erp-select"
+                      value={currentErp}
+                      onChange={(e) => setCurrentErp(e.target.value)}
+                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-3 text-sm font-semibold text-[#1E293B] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                    >
+                      <option value="SAP / Softland / Spring / Propio">
+                        Contamos con ERP (SAP, Softland, Spring, otro)
+                      </option>
+                      <option value="Excel / Facturador suelto (Buscamos Suite Completa)">
+                        Usamos Excel / sistemas aislados (Buscamos renovar)
+                      </option>
+                      <option value="Operación mixta por auditar en Paso Cero">
+                        Operación mixta (Evaluar en Paso Cero)
+                      </option>
+                    </select>
+                  </div>
                 </div>
 
-                <div>
+                <div className="mt-4">
                   <label
-                    htmlFor="company-name"
-                    className="block text-xs font-semibold text-[#091536]"
+                    htmlFor="notas-textarea"
+                    className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-2"
                   >
-                    Empresa o RUC (Opcional)
+                    Principal cuello de botella a resolver (Opcional)
                   </label>
-                  <input
-                    id="company-name"
-                    type="text"
-                    value={companyInput}
-                    onChange={(e) => setCompanyInput(e.target.value)}
-                    placeholder="Ej. Distribuidora Comercial SAC"
-                    className="mt-1.5 w-full px-3.5 py-2.5 bg-[#F5F8FD] border border-[#B8C7E6] text-sm text-[#091536] placeholder:text-[#3E507D]"
+                  <textarea
+                    id="notas-textarea"
+                    rows={3}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Ej. Demora en cotizar requerimientos por WhatsApp, cruce manual de órdenes de compra o facturación SUNAT..."
+                    className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-3 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
                   />
                 </div>
 
-                <div className="pt-2 space-y-2.5">
-                  <a
-                    href={buildWhatsAppHref()}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2.5 px-5 py-3.5 bg-[#C23800] hover:bg-[#9E2D00] text-white font-semibold text-sm transition-colors"
+                <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <button
+                    type="submit"
+                    className="btn-pill-ml6 flex-1 justify-between py-3.5 cursor-pointer"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>Enviar Solicitud por WhatsApp ({COMPANY_DATA.phone})</span>
-                  </a>
+                    <span>Enviar y Contactar por WhatsApp</span>
+                    <span className="icono-circulo" aria-hidden="true">
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 7h10v10" />
+                        <path d="M7 17 17 7" />
+                      </svg>
+                    </span>
+                  </button>
 
                   <a
-                    href={buildMailtoHref()}
-                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#091536] hover:bg-[#0B2D9E] text-white font-medium text-xs sm:text-sm transition-colors"
+                    href={buildMailtoUrl()}
+                    className="btn-secundario-ml6 shrink-0"
                   >
-                    <Mail className="w-4 h-4 text-[#FF7A33]" />
-                    <span>Solicitar por Correo ({COMPANY_DATA.email})</span>
+                    <Send className="w-4 h-4" />
+                    <span>Enviar por Correo</span>
                   </a>
                 </div>
-              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PIE DE PÁGINA (.pie de progresissac.com sobre #F8FAFC) */}
+      <footer className="bg-[#F8FAFC] border-t border-[#E2E8F0] pt-14 pb-10 text-[#334155]">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-10 border-b border-[#E2E8F0]">
+            <div className="lg:col-span-4">
+              <img
+                src="./logo-progresis.png"
+                alt="Prógresis SAC · Consultoría y Tecnología"
+                width={254}
+                height={95}
+                className="h-11 w-auto object-contain block"
+              />
+              <p className="mt-4 text-sm text-[#334155] leading-relaxed">
+                <strong className="font-bold text-[#1E293B]">Agent PRO</strong>{" "}
+                es la solución agéntica de backoffice B2B de{" "}
+                <strong className="font-bold text-[#1E293B]">
+                  Prógresis SAC
+                </strong>{" "}
+                que integra inteligencia artificial operativa, conexión ERP vía
+                API y facturación electrónica SUNAT.
+              </p>
+            </div>
+
+            <div className="lg:col-span-3">
+              <h3 className="font-display-progresis font-bold text-base text-[#274C9B]">
+                Ecosistema Agent PRO
+              </h3>
+              <ul className="mt-3 space-y-2 text-sm font-medium">
+                <li>
+                  <a
+                    href="#comparativa-erp"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    ERP Tradicional vs. Agent PRO
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#modelos-implementacion"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    Opción A (API) & Opción B (Full Suite)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#circuito-agentes"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    Los 7 Agentes Especializados
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#modulos-suite"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    6 Módulos Administrativos + SUNAT
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="lg:col-span-2">
+              <h3 className="font-display-progresis font-bold text-base text-[#274C9B]">
+                Planes SaaS
+              </h3>
+              <ul className="mt-3 space-y-2 text-sm font-medium">
+                <li>
+                  <a
+                    href="#planes-saas"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    Comercial · S/ 350 + IGV
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#planes-saas"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    Sólo Agentes API · S/ 490 + IGV
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#planes-saas"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    Suite Total · S/ 690 + IGV
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#paso-cero"
+                    className="hover:text-[#274C9B] transition-colors"
+                  >
+                    El Paso Cero
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="lg:col-span-3">
+              <h3 className="font-display-progresis font-bold text-base text-[#274C9B]">
+                Contacto Oficial
+              </h3>
+              <ul className="mt-3 space-y-2 text-sm font-medium">
+                <li className="font-tabular-data font-bold text-[#1E293B]">
+                  WhatsApp: {COMPANY_DATA.phone}
+                </li>
+                <li className="break-all">{COMPANY_DATA.email}</li>
+                <li>
+                  <a
+                    href={COMPANY_DATA.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#274C9B] font-bold hover:underline"
+                  >
+                    {COMPANY_DATA.website}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Bottom Legal & Author Line */}
-          <div className="mt-14 pt-6 border-t border-[#2347BA] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#DCE6FF]">
-            <div>
-              © {new Date().getFullYear()} {COMPANY_DATA.companyFull} · Todos los derechos reservados.
-            </div>
-            <div className="font-tabular-data">
-              PRO-IA · Transformación Digital & Automatización Operativa B2B
-            </div>
+          <div className="pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-[#475569] font-medium">
+            <p>
+              © {new Date().getFullYear()} Prógresis SAC · Consultoría &
+              Tecnología. Todos los derechos reservados.
+            </p>
+            <p>Agent PRO · Transformación Digital & Automatización Operativa</p>
           </div>
         </div>
       </footer>
