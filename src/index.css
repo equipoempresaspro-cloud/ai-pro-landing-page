@@ -40,6 +40,8 @@
     color: var(--ink-strong);
     caret-color: var(--accent);
     text-underline-offset: 0.22em;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
   }
 
   body {

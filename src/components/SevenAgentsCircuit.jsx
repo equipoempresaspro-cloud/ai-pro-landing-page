@@ -1,205 +1,176 @@
 import React, { useState } from "react";
-import { SEVEN_AGENTS, SUITE_MODULES } from "../data/brochureData";
-import { ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { COMERCIAL_SYSTEM_SCREENS } from "../data/brochureData";
+import { CheckCircle2, ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function SevenAgentsCircuit() {
-  const [selectedAgentIndex, setSelectedAgentIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeScreen = COMERCIAL_SYSTEM_SCREENS[activeIndex];
 
-  const activeAgent = SEVEN_AGENTS[selectedAgentIndex];
-
-  const handlePrevAgent = () => {
-    setSelectedAgentIndex((prev) =>
-      prev === 0 ? SEVEN_AGENTS.length - 1 : prev - 1
+  const handlePrev = () => {
+    setActiveIndex((prev) =>
+      prev === 0 ? COMERCIAL_SYSTEM_SCREENS.length - 1 : prev - 1
     );
   };
 
-  const handleNextAgent = () => {
-    setSelectedAgentIndex((prev) => (prev + 1) % SEVEN_AGENTS.length);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % COMERCIAL_SYSTEM_SCREENS.length);
   };
 
   return (
-    <div>
-      {/* SECCIÓN 1: Los 7 Agentes Especializados de Agent PRO — Estilo exacto .seccion-procesos de progresissac.com */}
-      <section
-        id="circuito-agentes"
-        className="py-16 lg:py-20 surface-navy-gradient text-[#FFFFFF] border-b border-[#1E386D]"
-      >
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-8">
+    <section
+      id="gestion-comercial"
+      className="py-16 lg:py-20 surface-navy-gradient text-[#FFFFFF] border-b border-[#1E386D]"
+    >
+      <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+        {/* Cabecera concisa */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+          <div>
             <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#FFFFFF] leading-tight">
-              Los 7 Agentes Especializados de Agent PRO
+              Gestión Comercial &{" "}
+              <span className="text-[#7DD3FC]">Compras B2B con IA</span>
             </h2>
-            <p className="mt-2.5 text-base text-[#E2EAF6]">
-              Selecciona cada agente para ver cómo ejecuta tu backoffice
-              comercial, logístico y financiero.
+            <p className="mt-1 text-sm sm:text-base text-[#E2EAF6]">
+              Lee requerimientos en PDF, cotiza con proveedores y emite órdenes
+              automáticamente.
             </p>
           </div>
 
-          {/* Barra de Píldoras Interactivas (.procesos-barra de progresissac.com) */}
+          {/* Selector de las 4 vistas clave */}
           <div
             role="tablist"
-            aria-label="Selector de los 7 agentes de Agent PRO"
-            className="flex flex-wrap gap-2 mb-7"
+            aria-label="Vistas de Gestión Comercial B2B"
+            className="flex flex-wrap lg:flex-nowrap gap-2 shrink-0"
           >
-            {SEVEN_AGENTS.map((agent, index) => {
-              const isSelected = index === selectedAgentIndex;
+            {COMERCIAL_SYSTEM_SCREENS.map((screen, idx) => {
+              const isSelected = idx === activeIndex;
               return (
                 <button
-                  key={agent.code}
+                  key={screen.id}
                   role="tab"
                   aria-selected={isSelected}
                   type="button"
-                  onClick={() => setSelectedAgentIndex(index)}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                  onClick={() => setActiveIndex(idx)}
+                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
                     isSelected
                       ? "bg-[#C2410C] text-[#FFFFFF] shadow-progresis-md"
                       : "bg-[#1E386D] text-[#E2EAF6] border border-[#3B5998] hover:border-[#7DD3FC] hover:text-[#FFFFFF]"
                   }`}
                 >
-                  <span className="font-tabular-data font-extrabold">
-                    0{agent.number}
-                  </span>
-                  <span>{agent.name}</span>
+                  {screen.shortLabel}
                 </button>
               );
             })}
           </div>
+        </div>
 
-          {/* Visor Único del Agente Seleccionado (.proceso-visor de progresissac.com, sin listas duplicadas debajo) */}
-          <div className="rounded-[28px] bg-[#1E386D] border border-[#3B5998] overflow-hidden shadow-progresis-lg">
-            <div className="p-6 sm:p-9 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h3 className="font-display-progresis font-bold text-2xl sm:text-3xl text-[#FFFFFF]">
-                    0{activeAgent.number}. {activeAgent.name}
-                  </h3>
-                  <span className="font-tabular-data text-xs font-extrabold px-3 py-1 rounded-full bg-[#152B59] text-[#7DD3FC] border border-[#3B5998]">
-                    {activeAgent.front}
-                  </span>
-                </div>
-
-                <p className="mt-3 text-base sm:text-lg text-[#E2EAF6] leading-relaxed">
-                  {activeAgent.description}
-                </p>
-
-                <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#152B59] border border-[#3B5998] text-xs font-bold text-[#7DD3FC]">
-                  <CheckCircle2 className="w-4 h-4 text-[#7DD3FC] shrink-0" />
-                  <span>{activeAgent.connectedModule}</span>
-                </div>
+        {/* Marco Principal del Producto */}
+        <div className="rounded-[28px] bg-[#1E386D] border border-[#3B5998] shadow-progresis-lg overflow-hidden">
+          <div className="bg-[#0D1D3D] text-[#FFFFFF] px-5 sm:px-7 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-[#334E85]">
+            <div className="flex items-center gap-3 min-w-0">
+              <div
+                className="flex items-center gap-1.5 shrink-0"
+                aria-hidden="true"
+              >
+                <span className="w-3 h-3 rounded-full bg-[#EB6828]" />
+                <span className="w-3 h-3 rounded-full bg-[#FDBA74]" />
+                <span className="w-3 h-3 rounded-full bg-[#7DD3FC]" />
               </div>
-
-              <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-[#334E85] pt-5 lg:pt-0 lg:pl-8 divide-y divide-[#334E85]">
-                <div className="pb-4">
-                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#7DD3FC]">
-                    Entrada
-                  </p>
-                  <p className="mt-1 text-sm text-[#FFFFFF] font-medium">
-                    {activeAgent.inputs}
-                  </p>
-                </div>
-
-                <div className="pt-4">
-                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#FDBA74]">
-                    Resultado Autónomo
-                  </p>
-                  <p className="mt-1 text-sm text-[#FFFFFF] font-medium">
-                    {activeAgent.outputs}
-                  </p>
-                </div>
-              </div>
+              <h3 className="font-display-progresis font-bold text-base sm:text-lg text-[#FFFFFF]">
+                {activeScreen.title}
+              </h3>
             </div>
 
-            <div className="px-6 sm:px-9 py-4 bg-[#152B59] border-t border-[#334E85] flex items-center justify-between gap-4">
-              <button
-                type="button"
-                onClick={handlePrevAgent}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E386D] hover:bg-[#274C9B] border border-[#3B5998] text-xs font-bold text-[#FFFFFF] transition-colors cursor-pointer"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Anterior
-              </button>
+            <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+              <div className="hidden md:flex items-center gap-2">
+                {activeScreen.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#152B59] border border-[#3B5998] text-xs font-bold text-[#E2EAF6]"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#7DD3FC] shrink-0" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-              <span className="font-tabular-data text-xs font-bold text-[#E2EAF6]">
-                0{activeAgent.number} / 07
-              </span>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Vista anterior"
+                  className="w-8 h-8 rounded-full bg-[#1E386D] hover:bg-[#274C9B] border border-[#3B5998] text-[#FFFFFF] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Siguiente vista"
+                  className="w-8 h-8 rounded-full bg-[#C2410C] hover:bg-[#9A3412] text-[#FFFFFF] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
 
-              <button
-                type="button"
-                onClick={handleNextAgent}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C2410C] hover:bg-[#9A3412] text-xs font-extrabold text-[#FFFFFF] transition-colors cursor-pointer"
-              >
-                Siguiente
-                <ArrowRight className="w-4 h-4" />
-              </button>
+          <div className="p-3 sm:p-5">
+            <div className="rounded-[20px] overflow-hidden border border-[#3B5998] bg-[#FFFFFF] shadow-progresis-md">
+              <img
+                src={activeScreen.image}
+                alt={activeScreen.title}
+                width={1366}
+                height={680}
+                className="w-full h-auto block"
+              />
             </div>
           </div>
         </div>
-      </section>
 
-      {/* SECCIÓN 2: Los 6 Módulos Administrativos + SUNAT (Compacto y directo sobre #EDF3FC) */}
-      <section
-        id="modulos-suite"
-        className="py-16 lg:py-20 bg-[#EDF3FC] border-b border-[#CBD5E1]"
-      >
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-9">
-            <div className="max-w-xl">
-              <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#274C9B] leading-tight">
-                6 Módulos Administrativos + Facturación SUNAT
-              </h2>
-              <p className="mt-2 text-base text-[#334155]">
-                Plataforma web centralizada y actualizada en tiempo real por tus
-                agentes.
-              </p>
-            </div>
-
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFFFF] border border-[#CBD5E1] text-xs font-extrabold text-[#274C9B] self-start lg:self-auto">
-              <ShieldCheck className="w-4 h-4 text-[#C2410C]" />
-              PSE Oficial Certificado por SUNAT
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SUITE_MODULES.map((moduleItem) => (
-              <article
-                key={moduleItem.code}
-                className="rounded-[24px] bg-[#FFFFFF] border border-[#CBD5E1] hover:border-[#274C9B] p-6 flex flex-col justify-between transition-all shadow-progresis-sm"
+        {/* 4 Tarjetas Visuales de Acceso Rápido */}
+        <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {COMERCIAL_SYSTEM_SCREENS.map((screen, idx) => {
+            const isSelected = idx === activeIndex;
+            return (
+              <button
+                key={screen.id}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                className={`group text-left rounded-[20px] p-2.5 transition-all cursor-pointer border ${
+                  isSelected
+                    ? "bg-[#274C9B] border-2 border-[#7DD3FC] shadow-progresis-md"
+                    : "bg-[#1E386D] border-[#3B5998] hover:border-[#7DD3FC]"
+                }`}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-display-progresis font-bold text-lg text-[#274C9B]">
-                      {moduleItem.name}
-                    </h3>
-                    <span className="font-tabular-data text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-[#EDF3FC] text-[#274C9B] border border-[#CBD5E1]">
-                      {moduleItem.code}
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-sm text-[#334155]">
-                    {moduleItem.description}
-                  </p>
+                <div className="rounded-[12px] overflow-hidden border border-[#3B5998] bg-[#0D1D3D] aspect-[16/9]">
+                  <img
+                    src={screen.image}
+                    alt={screen.shortLabel}
+                    loading="lazy"
+                    width={400}
+                    height={225}
+                    className="w-full h-full object-cover object-left-top group-hover:scale-[1.02] transition-transform"
+                  />
                 </div>
-
-                <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold text-[#475569]">
-                    Agentes activos:
+                <div className="mt-2.5 px-1 flex items-center justify-between gap-2">
+                  <span className="font-display-progresis font-bold text-sm text-[#FFFFFF]">
+                    {screen.shortLabel}
                   </span>
-                  <div className="flex flex-wrap gap-1">
-                    {moduleItem.linkedAgents.map((agCode) => (
-                      <span
-                        key={agCode}
-                        className="font-tabular-data text-xs font-extrabold px-2 py-0.5 rounded-full bg-[#FFF5EF] text-[#9A3412] border border-[#FDBA74]"
-                      >
-                        {agCode}
-                      </span>
-                    ))}
-                  </div>
+                  <span
+                    className={`text-xs font-extrabold px-2 py-0.5 rounded-full ${
+                      isSelected
+                        ? "bg-[#C2410C] text-[#FFFFFF]"
+                        : "bg-[#152B59] text-[#7DD3FC]"
+                    }`}
+                  >
+                    {screen.tags[0]}
+                  </span>
                 </div>
-              </article>
-            ))}
-          </div>
+              </button>
+            );
+          })}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

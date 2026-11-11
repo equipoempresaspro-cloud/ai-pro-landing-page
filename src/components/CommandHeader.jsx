@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
-  { href: "#comparativa-erp", label: "ERP vs. Agent PRO" },
-  { href: "#modelos-implementacion", label: "Modelos A / B" },
-  { href: "#circuito-agentes", label: "7 Agentes IA" },
-  { href: "#modulos-suite", label: "6 Módulos Suite" },
-  { href: "#planes-saas", label: "Planes SaaS" },
+  { href: "#crm-whatsapp", label: "CRM & WhatsApp IA" },
+  { href: "#gestion-comercial", label: "Comercial & Compras IA" },
+  { href: "#planes-saas", label: "Precios" },
 ];
 
 export default function CommandHeader() {
@@ -31,7 +29,7 @@ export default function CommandHeader() {
           </a>
 
           <nav
-            aria-label="Navegación de secciones Agent PRO"
+            aria-label="Navegación del sistema Prógresis"
             className="hidden lg:flex items-center gap-7"
           >
             {NAV_ITEMS.map((item) => (
@@ -47,9 +45,7 @@ export default function CommandHeader() {
 
           <div className="flex items-center gap-2">
             <a href="#paso-cero" className="btn-pill-ml6">
-              <span>
-                <span className="hidden sm:inline">Agendar </span>Paso Cero
-              </span>
+              <span>Contacto</span>
               <span className="icono-circulo" aria-hidden="true">
                 <svg
                   width="15"

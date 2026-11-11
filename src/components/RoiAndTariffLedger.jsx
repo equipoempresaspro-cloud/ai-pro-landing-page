@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   PhoneCall,
   Mail,
-  Globe,
   TrendingUp,
   Send,
 } from "lucide-react";
@@ -15,15 +14,12 @@ export default function RoiAndTariffLedger({
 }) {
   const [companyName, setCompanyName] = useState("");
   const [contactName, setContactName] = useState("");
-  const [notes, setNotes] = useState("");
 
   const buildWhatsappUrl = () => {
     const text = [
-      `Hola equipo de Prógresis SAC, deseo agendar *El Paso Cero* para evaluar *Agent PRO*.`,
+      `Hola equipo de Prógresis SAC, me interesa *${selectedPlanLabel}*.`,
       companyName ? `• Empresa / RUC: ${companyName}` : null,
       contactName ? `• Contacto: ${contactName}` : null,
-      `• Modalidad: ${selectedPlanLabel}`,
-      notes ? `• Consulta: ${notes}` : null,
     ]
       .filter(Boolean)
       .join("\n");
@@ -34,17 +30,13 @@ export default function RoiAndTariffLedger({
   };
 
   const buildMailtoUrl = () => {
-    const subject = `Solicitud Paso Cero Agent PRO — ${
-      companyName || "Empresa B2B"
-    }`;
+    const subject = `Solicitud Agent PRO — ${companyName || "Empresa B2B"}`;
     const body = [
-      `Estimado equipo de Prógresis SAC,`,
+      `Hola equipo de Prógresis SAC,`,
       ``,
-      `Solicito agendar El Paso Cero para evaluar Agent PRO.`,
+      `Solicito información sobre: ${selectedPlanLabel}`,
       `Empresa / RUC: ${companyName || "Por especificar"}`,
       `Contacto: ${contactName || "Por especificar"}`,
-      `Modalidad: ${selectedPlanLabel}`,
-      `Consulta: ${notes || "Sin comentarios adicionales"}`,
     ].join("\n");
 
     return `mailto:${COMPANY_DATA.email}?subject=${encodeURIComponent(
@@ -59,31 +51,31 @@ export default function RoiAndTariffLedger({
 
   return (
     <div>
-      {/* SECCIÓN 1: Planes en Alquiler Mensual (SaaS) + ROI Directo */}
+      {/* SECCIÓN: Planes en Alquiler Mensual (SaaS) */}
       <section
         id="planes-saas"
         className="py-16 lg:py-20 bg-[#FFFFFF] border-b border-[#E2E8F0]"
       >
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-            <div className="max-w-xl">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-9">
+            <div>
               <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#274C9B] leading-tight">
                 Planes en Alquiler Mensual (SaaS)
               </h2>
-              <p className="mt-2 text-base text-[#334155]">
-                Disponibilidad 24/7 por una fracción de lo que cuesta ampliar
-                personal administrativo.
+              <p className="mt-1.5 text-sm sm:text-base text-[#334155]">
+                Disponibilidad 24/7 por una fracción de ampliar personal
+                administrativo.
               </p>
             </div>
 
-            <div className="rounded-[14px] bg-[#FFF5EF] border border-[#FDBA74] px-4 py-3 flex items-center gap-2.5 self-start lg:self-auto">
-              <TrendingUp className="w-5 h-5 text-[#9A3412] shrink-0" />
+            <div className="rounded-[14px] bg-[#FFF5EF] border border-[#FDBA74] px-4 py-2.5 flex items-center gap-2 self-start lg:self-auto">
+              <TrendingUp className="w-4 h-4 text-[#9A3412] shrink-0" />
               <p className="text-xs sm:text-sm font-bold text-[#1E293B]">
                 ROI Mes 1: Con recuperar{" "}
                 <span className="text-[#9A3412] underline">
                   1 o 2 ventas al mes
                 </span>
-                , Agent PRO se paga solo.
+                , se paga solo.
               </p>
             </div>
           </div>
@@ -208,85 +200,55 @@ export default function RoiAndTariffLedger({
                 Implementación y Puesta a Punto:
               </strong>{" "}
               Desde <strong className="font-tabular-data">S/ 1,790 + IGV</strong>{" "}
-              (Pago único · Plazo de 15 días a 3 meses).
+              (Pago único · 15 días a 3 meses).
             </p>
             <span className="text-xs text-[#475569]">
-              *Consumos de WhatsApp Cloud API facturados según Meta.
+              *Consumos de WhatsApp Cloud API según Meta.
             </span>
           </div>
         </div>
       </section>
 
-      {/* SECCIÓN 2: El Paso Cero — Estilo exacto .seccion-contacto de progresissac.com */}
+      {/* SECCIÓN CONTACTO COMPACTA */}
       <section
         id="paso-cero"
-        className="py-16 lg:py-20 surface-blue-gradient text-[#FFFFFF]"
+        className="py-14 lg:py-16 surface-blue-gradient text-[#FFFFFF]"
       >
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5">
-              <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#FFFFFF] leading-tight">
-                El Paso Cero: Consultoría Estratégica
+              <h2 className="font-display-progresis font-bold text-2xl sm:text-3xl text-[#FFFFFF] leading-tight">
+                Solicitar Demostración
               </h2>
-              <p className="mt-3 text-base text-[#E2EAF6] leading-relaxed">
-                Auditamos los flujos de tu empresa y diseñamos la arquitectura
-                exacta que tu operación necesita antes de desplegar los agentes.
+              <p className="mt-2 text-sm sm:text-base text-[#E2EAF6]">
+                Agenda una sesión directa por WhatsApp o correo.
               </p>
 
-              <div className="mt-7 space-y-3">
+              <div className="mt-5 space-y-2.5">
                 <a
                   href={`https://wa.me/${COMPANY_DATA.whatsappIntl}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-4 transition-all"
+                  className="flex items-center gap-3.5 rounded-[18px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-3.5 transition-all"
                 >
-                  <span className="w-11 h-11 rounded-[12px] bg-[#C2410C] text-[#FFFFFF] flex items-center justify-center shrink-0">
+                  <span className="w-10 h-10 rounded-[12px] bg-[#C2410C] text-[#FFFFFF] flex items-center justify-center shrink-0">
                     <PhoneCall className="w-5 h-5" />
                   </span>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
-                      WhatsApp Directo
-                    </p>
-                    <p className="font-display-progresis font-bold text-lg text-[#FFFFFF] font-tabular-data">
-                      {COMPANY_DATA.phone}
-                    </p>
-                  </div>
+                  <span className="font-display-progresis font-bold text-lg text-[#FFFFFF] font-tabular-data">
+                    WhatsApp: {COMPANY_DATA.phone}
+                  </span>
                 </a>
 
                 <a
                   href={`mailto:${COMPANY_DATA.email}`}
-                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-4 transition-all"
+                  className="flex items-center gap-3.5 rounded-[18px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-3.5 transition-all"
                 >
-                  <span className="w-11 h-11 rounded-[12px] bg-[#274C9B] border border-[#7DD3FC] text-[#FFFFFF] flex items-center justify-center shrink-0">
+                  <span className="w-10 h-10 rounded-[12px] bg-[#274C9B] border border-[#7DD3FC] text-[#FFFFFF] flex items-center justify-center shrink-0">
                     <Mail className="w-5 h-5" />
                   </span>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
-                      Correo Corporativo
-                    </p>
-                    <p className="font-bold text-sm text-[#FFFFFF] truncate">
-                      {COMPANY_DATA.email}
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href={COMPANY_DATA.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 rounded-[20px] bg-[#1E3A7A] hover:bg-[#152B59] border border-[#4364AD] p-4 transition-all"
-                >
-                  <span className="w-11 h-11 rounded-[12px] bg-[#274C9B] border border-[#7DD3FC] text-[#FFFFFF] flex items-center justify-center shrink-0">
-                    <Globe className="w-5 h-5" />
+                  <span className="font-bold text-sm text-[#FFFFFF] truncate">
+                    {COMPANY_DATA.email}
                   </span>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#7DD3FC]">
-                      Sitio Oficial
-                    </p>
-                    <p className="font-bold text-sm text-[#FFFFFF]">
-                      {COMPANY_DATA.website}
-                    </p>
-                  </div>
                 </a>
               </div>
             </div>
@@ -294,17 +256,13 @@ export default function RoiAndTariffLedger({
             <div className="lg:col-span-7">
               <form
                 onSubmit={handleFormSubmit}
-                className="rounded-[28px] bg-[#FFFFFF] text-[#1E293B] p-7 sm:p-9 shadow-progresis-lg border border-[#CBD5E1]"
+                className="rounded-[24px] bg-[#FFFFFF] text-[#1E293B] p-6 sm:p-7 shadow-progresis-lg border border-[#CBD5E1]"
               >
-                <h3 className="font-display-progresis font-bold text-2xl text-[#274C9B]">
-                  Agenda tu Diagnóstico Operativo
-                </h3>
-
-                <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div>
                     <label
                       htmlFor="empresa-input"
-                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1.5"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1"
                     >
                       Empresa o RUC
                     </label>
@@ -313,78 +271,58 @@ export default function RoiAndTariffLedger({
                       type="text"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-                      placeholder="Ej. Distribuidora Norte SAC"
-                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-2.5 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                      placeholder="Ej. Importadora SAC"
+                      className="w-full rounded-[12px] bg-[#F8FAFC] border border-[#CBD5E1] px-3.5 py-2.5 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="contacto-input"
-                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1.5"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1"
                     >
-                      Nombre y Cargo
+                      Nombre
                     </label>
                     <input
                       id="contacto-input"
                       type="text"
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Ej. Carlos Mendoza · Gerente"
-                      className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-2.5 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                      placeholder="Tu nombre"
+                      className="w-full rounded-[12px] bg-[#F8FAFC] border border-[#CBD5E1] px-3.5 py-2.5 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
                     />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="plan-select"
+                      className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1"
+                    >
+                      Plan
+                    </label>
+                    <select
+                      id="plan-select"
+                      value={selectedPlanLabel}
+                      onChange={(e) => onSelectPlan(e.target.value)}
+                      className="w-full rounded-[12px] bg-[#F8FAFC] border border-[#CBD5E1] px-3 py-2.5 text-sm font-semibold text-[#1E293B] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
+                    >
+                      <option value="Software Completo · S/ 690 + IGV / mes">
+                        Suite Total · S/ 690
+                      </option>
+                      <option value="Sólo Agentes (API) · S/ 490 + IGV / mes">
+                        Sólo Agentes · S/ 490
+                      </option>
+                      <option value="Módulos + Agente 1 · S/ 350 + IGV / mes">
+                        Comercial · S/ 350
+                      </option>
+                    </select>
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <label
-                    htmlFor="plan-select"
-                    className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1.5"
-                  >
-                    Modalidad Agent PRO
-                  </label>
-                  <select
-                    id="plan-select"
-                    value={selectedPlanLabel}
-                    onChange={(e) => onSelectPlan(e.target.value)}
-                    className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-2.5 text-sm font-semibold text-[#1E293B] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
-                  >
-                    <option value="Software Completo · S/ 690 + IGV / mes">
-                      Software Completo · S/ 690 + IGV / mes
-                    </option>
-                    <option value="Sólo Agentes (API) · S/ 490 + IGV / mes">
-                      Sólo Agentes (API) · S/ 490 + IGV / mes
-                    </option>
-                    <option value="Módulos + Agente 1 · S/ 350 + IGV / mes">
-                      Módulos + Agente 1 · S/ 350 + IGV / mes
-                    </option>
-                    <option value="Vibe Coding & Agentes a la Medida · Evaluación Paso Cero">
-                      Vibe Coding & Agentes a la Medida
-                    </option>
-                  </select>
-                </div>
-
-                <div className="mt-4">
-                  <label
-                    htmlFor="notas-textarea"
-                    className="block text-xs font-extrabold uppercase tracking-wider text-[#1E293B] mb-1.5"
-                  >
-                    Consulta breve (Opcional)
-                  </label>
-                  <input
-                    id="notas-textarea"
-                    type="text"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Ej. Integración con nuestro ERP o facturación SUNAT..."
-                    className="w-full rounded-[14px] bg-[#F8FAFC] border border-[#CBD5E1] px-4 py-2.5 text-sm text-[#1E293B] placeholder:text-[#475569] focus:bg-[#FFFFFF] focus:border-[#274C9B]"
-                  />
-                </div>
-
-                <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
                     type="submit"
-                    className="btn-pill-ml6 flex-1 justify-between py-3 cursor-pointer"
+                    className="btn-pill-ml6 flex-1 justify-between py-2.5 cursor-pointer"
                   >
                     <span>Contactar por WhatsApp</span>
                     <span className="icono-circulo" aria-hidden="true">
@@ -418,19 +356,19 @@ export default function RoiAndTariffLedger({
         </div>
       </section>
 
-      {/* PIE DE PÁGINA COMPACTO */}
-      <footer className="bg-[#F8FAFC] border-t border-[#E2E8F0] py-8 text-[#334155]">
+      {/* PIE DE PÁGINA */}
+      <footer className="bg-[#F8FAFC] border-t border-[#E2E8F0] py-6 text-[#334155]">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <img
             src="./logo-progresis.png"
             alt="Prógresis SAC · Consultoría y Tecnología"
             width={254}
             height={95}
-            className="h-9 w-auto object-contain block"
+            className="h-8 w-auto object-contain block"
           />
 
           <p className="text-xs text-[#475569] font-medium text-center sm:text-right">
-            © {new Date().getFullYear()} Prógresis SAC · Agent PRO · WhatsApp:{" "}
+            © {new Date().getFullYear()} Prógresis SAC · WhatsApp:{" "}
             <strong className="font-tabular-data text-[#1E293B]">
               {COMPANY_DATA.phone}
             </strong>{" "}

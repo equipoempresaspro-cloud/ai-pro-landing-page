@@ -1,199 +1,176 @@
 import React, { useState } from "react";
-import { LIVE_AUDIT_SCENARIOS, ROI_METRICS } from "../data/brochureData";
-import { CheckCircle2, Play, FileCheck2, Clock } from "lucide-react";
+import { CRM_SYSTEM_SCREENS } from "../data/brochureData";
+import { CheckCircle2, ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function OpeningCommandLedger() {
-  const [activeScenarioIndex, setActiveScenarioIndex] = useState(0);
-  const [highlightedStep, setHighlightedStep] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeScreen = CRM_SYSTEM_SCREENS[activeIndex];
 
-  const activeScenario = LIVE_AUDIT_SCENARIOS[activeScenarioIndex];
-  const currentStep = activeScenario.steps[highlightedStep];
-
-  const handleScenarioChange = (index) => {
-    setActiveScenarioIndex(index);
-    setHighlightedStep(0);
+  const handlePrev = () => {
+    setActiveIndex((prev) =>
+      prev === 0 ? CRM_SYSTEM_SCREENS.length - 1 : prev - 1
+    );
   };
 
-  const handleAdvanceStep = () => {
-    setHighlightedStep((prev) => (prev + 1) % activeScenario.steps.length);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % CRM_SYSTEM_SCREENS.length);
   };
 
   return (
     <section
-      id="inicio"
-      className="pt-8 pb-16 lg:pt-14 lg:pb-24 bg-[#FFFFFF] border-b border-[#E2E8F0]"
+      id="crm-whatsapp"
+      className="py-16 lg:py-20 bg-[#FFFFFF] border-b border-[#E2E8F0]"
     >
       <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Columna Izquierda: Titular directo y respirable al estilo progresissac.com */}
-          <div className="lg:col-span-6">
-            <h1 className="font-display-progresis font-bold text-4xl sm:text-5xl leading-[1.08] text-[#274C9B] uppercase">
-              Automatiza tu operación con{" "}
-              <span className="text-[#C2410C]">Agent PRO:</span> Backoffice con
-              IA 24/7
-            </h1>
-
-            <p className="mt-5 text-base sm:text-lg leading-relaxed text-[#334155] font-medium measure-prose">
-              <strong className="font-bold text-[#1E293B]">
-                7 agentes especializados
-              </strong>{" "}
-              que atienden WhatsApp y correo, validan stock y emiten facturación
-              SUNAT en menos de 3 minutos, sin digitación manual.
+        {/* Cabecera limpia y directa sin párrafos largos */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+          <div>
+            <h2 className="font-display-progresis font-bold text-3xl sm:text-4xl text-[#274C9B] leading-tight">
+              CRM & Agente IA en{" "}
+              <span className="text-[#C2410C]">WhatsApp</span>
+            </h2>
+            <p className="mt-1 text-sm sm:text-base text-[#334155] font-medium">
+              Atiende chats 24/7, agenda en Google Calendar y registra
+              oportunidades automáticamente.
             </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3.5">
-              <a href="#paso-cero" className="btn-pill-ml6">
-                <span>Agendar Paso Cero</span>
-                <span className="icono-circulo" aria-hidden="true">
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M7 7h10v10" />
-                    <path d="M7 17 17 7" />
-                  </svg>
-                </span>
-              </a>
-
-              <a href="#circuito-agentes" className="btn-secundario-ml6">
-                <span>Explorar los 7 Agentes</span>
-              </a>
-            </div>
-
-            {/* 3 Indicadores clave en una sola franja limpia */}
-            <div className="mt-10 rounded-[20px] bg-[#F8FAFC] border border-[#CBD5E1] grid grid-cols-3 divide-x divide-[#CBD5E1] overflow-hidden shadow-progresis-sm">
-              {ROI_METRICS.map((metric) => (
-                <div key={metric.code} className="px-4 py-4">
-                  <p className="font-display-progresis font-bold text-2xl sm:text-3xl text-[#274C9B] font-tabular-data leading-none">
-                    {metric.figure}
-                  </p>
-                  <p className="mt-1.5 text-xs sm:text-sm font-bold text-[#1E293B]">
-                    {metric.title}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Columna Derecha: Visor compacto de un paso a la vez */}
-          <div className="lg:col-span-6">
-            <div className="rounded-[28px] bg-[#FFFFFF] border border-[#CBD5E1] shadow-progresis-lg overflow-hidden">
-              <div className="surface-navy-gradient px-6 py-5 text-[#FFFFFF] flex items-center justify-between gap-4">
-                <div>
-                  <h2 className="font-display-progresis font-bold text-xl text-[#FFFFFF]">
-                    Flujo en Vivo · Agent PRO
-                  </h2>
-                  <p className="text-xs text-[#E2EAF6] mt-0.5">
-                    Ejecución automática sin intervención humana
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1.5 font-tabular-data text-xs font-extrabold text-[#FFFFFF] bg-[#C2410C] px-3.5 py-1.5 rounded-full shrink-0">
-                  <Clock className="w-3.5 h-3.5" />
-                  {activeScenario.elapsedTotal}
-                </span>
-              </div>
+          {/* Selector de las 4 vistas clave */}
+          <div
+            role="tablist"
+            aria-label="Vistas del CRM EmpresasPro"
+            className="flex flex-wrap lg:flex-nowrap gap-2 shrink-0"
+          >
+            {CRM_SYSTEM_SCREENS.map((screen, idx) => {
+              const isSelected = idx === activeIndex;
+              return (
+                <button
+                  key={screen.id}
+                  role="tab"
+                  aria-selected={isSelected}
+                  type="button"
+                  onClick={() => setActiveIndex(idx)}
+                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-[#C2410C] text-[#FFFFFF] shadow-progresis-sm"
+                      : "bg-[#EDF3FC] text-[#274C9B] border border-[#CBD5E1] hover:border-[#274C9B]"
+                  }`}
+                >
+                  {screen.shortLabel}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-              {/* Selector de Caso */}
+        {/* Marco Principal del Producto */}
+        <div className="rounded-[28px] bg-[#EDF3FC] border border-[#CBD5E1] shadow-progresis-lg overflow-hidden">
+          {/* Una sola barra superior limpia con etiquetas cortas */}
+          <div className="bg-[#152B59] text-[#FFFFFF] px-5 sm:px-7 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-[#334E85]">
+            <div className="flex items-center gap-3 min-w-0">
               <div
-                role="tablist"
-                aria-label="Casos operativos de Agent PRO"
-                className="bg-[#EDF3FC] px-6 py-3 border-b border-[#CBD5E1] flex flex-wrap gap-2"
+                className="flex items-center gap-1.5 shrink-0"
+                aria-hidden="true"
               >
-                {LIVE_AUDIT_SCENARIOS.map((scenario, idx) => {
-                  const isSelected = idx === activeScenarioIndex;
-                  return (
-                    <button
-                      key={scenario.id}
-                      role="tab"
-                      aria-selected={isSelected}
-                      type="button"
-                      onClick={() => handleScenarioChange(idx)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        isSelected
-                          ? "bg-[#274C9B] text-[#FFFFFF]"
-                          : "bg-[#FFFFFF] text-[#1E293B] border border-[#CBD5E1] hover:border-[#274C9B]"
-                      }`}
-                    >
-                      {scenario.label}
-                    </button>
-                  );
-                })}
+                <span className="w-3 h-3 rounded-full bg-[#EB6828]" />
+                <span className="w-3 h-3 rounded-full bg-[#FDBA74]" />
+                <span className="w-3 h-3 rounded-full bg-[#7DD3FC]" />
               </div>
+              <h2 className="font-display-progresis font-bold text-base sm:text-lg text-[#FFFFFF]">
+                {activeScreen.title}
+              </h2>
+            </div>
 
-              {/* Mensaje Entrante Resumido */}
-              <div className="px-6 py-4 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-                <p className="text-xs font-bold text-[#274C9B]">
-                  Entrada ({activeScenario.triggerChannel}):
-                </p>
-                <p className="mt-1 text-sm text-[#1E293B] font-semibold">
-                  «{activeScenario.triggerInput}»
-                </p>
-              </div>
-
-              {/* Visor del Paso Activo (Progresivo, sin saturar con los 3 pasos abiertos) */}
-              <div className="p-6 bg-[#FFFFFF]">
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <div className="flex items-center gap-1.5">
-                    {activeScenario.steps.map((step, idx) => (
-                      <button
-                        key={step.agentCode}
-                        type="button"
-                        onClick={() => setHighlightedStep(idx)}
-                        className={`px-3 py-1 rounded-full font-tabular-data text-xs font-extrabold transition-colors cursor-pointer ${
-                          idx === highlightedStep
-                            ? "bg-[#274C9B] text-[#FFFFFF]"
-                            : "bg-[#EDF3FC] text-[#274C9B] hover:bg-[#CBD5E1]"
-                        }`}
-                      >
-                        Paso {idx + 1}
-                      </button>
-                    ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleAdvanceStep}
-                    className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#C2410C] hover:text-[#9A3412] cursor-pointer"
+            <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+              <div className="hidden md:flex items-center gap-2">
+                {activeScreen.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1E386D] border border-[#3B5998] text-xs font-bold text-[#E2EAF6]"
                   >
-                    <Play className="w-3.5 h-3.5 fill-current" />
-                    Siguiente
-                  </button>
-                </div>
-
-                <div className="py-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-display-progresis font-bold text-lg text-[#1E293B]">
-                      {currentStep.agentName}
-                    </h3>
-                    <span className="inline-flex items-center gap-1 font-tabular-data text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-[#FFF5EF] text-[#9A3412] border border-[#FDBA74]">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      {currentStep.status} ({currentStep.timeDelta})
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-[#334155] leading-relaxed">
-                    {currentStep.actionTaken}
-                  </p>
-                </div>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#7DD3FC] shrink-0" />
+                    {tag}
+                  </span>
+                ))}
               </div>
 
-              {/* Documento Emitido */}
-              <div className="px-6 py-3.5 bg-[#EDF3FC] border-t border-[#CBD5E1] flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1E293B]">
-                  <FileCheck2 className="w-4 h-4 text-[#274C9B]" />
-                  Resultado:
-                </span>
-                <span className="font-tabular-data text-xs sm:text-sm font-extrabold text-[#274C9B]">
-                  {activeScenario.documentGenerated}
-                </span>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Vista anterior"
+                  className="w-8 h-8 rounded-full bg-[#1E386D] hover:bg-[#274C9B] border border-[#3B5998] text-[#FFFFFF] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Siguiente vista"
+                  className="w-8 h-8 rounded-full bg-[#C2410C] hover:bg-[#9A3412] text-[#FFFFFF] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
+
+          {/* Captura de pantalla limpia a tamaño completo */}
+          <div className="p-3 sm:p-5">
+            <div className="rounded-[20px] overflow-hidden border border-[#CBD5E1] bg-[#FFFFFF] shadow-progresis-md">
+              <img
+                src={activeScreen.image}
+                alt={activeScreen.title}
+                width={1366}
+                height={680}
+                className="w-full h-auto block"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Tarjetas Visuales de Acceso Rápido */}
+        <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {CRM_SYSTEM_SCREENS.map((screen, idx) => {
+            const isSelected = idx === activeIndex;
+            return (
+              <button
+                key={screen.id}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                className={`group text-left rounded-[20px] p-2.5 transition-all cursor-pointer border ${
+                  isSelected
+                    ? "bg-[#EDF3FC] border-2 border-[#274C9B] shadow-progresis-md"
+                    : "bg-[#FFFFFF] border-[#CBD5E1] hover:border-[#274C9B]"
+                }`}
+              >
+                <div className="rounded-[12px] overflow-hidden border border-[#E2E8F0] bg-[#F8FAFC] aspect-[16/9]">
+                  <img
+                    src={screen.image}
+                    alt={screen.shortLabel}
+                    loading="lazy"
+                    width={400}
+                    height={225}
+                    className="w-full h-full object-cover object-left-top group-hover:scale-[1.02] transition-transform"
+                  />
+                </div>
+                <div className="mt-2.5 px-1 flex items-center justify-between gap-2">
+                  <span className="font-display-progresis font-bold text-sm text-[#1E293B]">
+                    {screen.shortLabel}
+                  </span>
+                  <span
+                    className={`text-xs font-extrabold px-2 py-0.5 rounded-full ${
+                      isSelected
+                        ? "bg-[#C2410C] text-[#FFFFFF]"
+                        : "bg-[#EDF3FC] text-[#274C9B]"
+                    }`}
+                  >
+                    {screen.tags[0]}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommandHeader from "./components/CommandHeader";
+import HeroSection from "./components/HeroSection";
 import OpeningCommandLedger from "./components/OpeningCommandLedger";
-import ComparativeBalanceLedger from "./components/ComparativeBalanceLedger";
 import SevenAgentsCircuit from "./components/SevenAgentsCircuit";
 import RoiAndTariffLedger from "./components/RoiAndTariffLedger";
 
@@ -15,9 +15,9 @@ export default function App() {
       <CommandHeader />
 
       <main className="flex-1">
-        <OpeningCommandLedger onSelectQuickPlan={setSelectedPlanLabel} />
+        <HeroSection />
 
-        <ComparativeBalanceLedger onSelectPlan={setSelectedPlanLabel} />
+        <OpeningCommandLedger />
 
         <SevenAgentsCircuit />
 
