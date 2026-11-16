@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 const NAV_ITEMS = [
   { href: "#crm-whatsapp", label: "CRM & WhatsApp IA" },
   { href: "#gestion-comercial", label: "Comercial & Compras IA" },
+  { href: "#finanzas-direccion", label: "Finanzas & Dirección IA" },
   { href: "#planes-saas", label: "Precios" },
 ];
 

@@ -107,6 +107,37 @@ export const COMERCIAL_SYSTEM_SCREENS = [
   },
 ];
 
+export const FINANZAS_SYSTEM_SCREENS = [
+  {
+    id: "agente-oc-clientes",
+    title: "Agente 3 · Atención de OC de Clientes",
+    shortLabel: "OC Clientes",
+    image: "./screenshots/agente-oc-clientes.png",
+    tags: ["Valida la OC", "Precios pactados", "Orden de despacho"],
+  },
+  {
+    id: "agente-facturacion-cobranzas",
+    title: "Agente 5 · Facturación & Cobranzas",
+    shortLabel: "Facturación",
+    image: "./screenshots/agente-facturacion-cobranzas.png",
+    tags: ["Cobranza automática", "Facturación SUNAT", "Conciliación bancaria"],
+  },
+  {
+    id: "agente-cuentas-por-pagar",
+    title: "Agente 6 · Cuentas por Pagar",
+    shortLabel: "Cuentas por Pagar",
+    image: "./screenshots/agente-cuentas-por-pagar.png",
+    tags: ["Cruce con OC", "Calendario de pagos", "Pagos retenidos"],
+  },
+  {
+    id: "agente-informes-gerencia",
+    title: "Agente 7 · Informes para Gerencia",
+    shortLabel: "Informes IA",
+    image: "./screenshots/agente-informes-gerencia.png",
+    tags: ["Lenguaje natural", "Flujo de caja", "Cobranza pendiente"],
+  },
+];
+
 export const PRICING_PLANS = [
   {
     id: "comercial",

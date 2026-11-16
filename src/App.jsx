@@ -3,6 +3,7 @@ import CommandHeader from "./components/CommandHeader";
 import HeroSection from "./components/HeroSection";
 import OpeningCommandLedger from "./components/OpeningCommandLedger";
 import SevenAgentsCircuit from "./components/SevenAgentsCircuit";
+import FinanzasAgentsSection from "./components/FinanzasAgentsSection";
 import RoiAndTariffLedger from "./components/RoiAndTariffLedger";
 
 export default function App() {
@@ -20,6 +21,8 @@ export default function App() {
         <OpeningCommandLedger />
 
         <SevenAgentsCircuit />
+
+        <FinanzasAgentsSection />
 
         <RoiAndTariffLedger
           selectedPlanLabel={selectedPlanLabel}
