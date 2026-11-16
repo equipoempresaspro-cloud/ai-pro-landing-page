@@ -9,7 +9,7 @@ export const COMPANY_DATA = {
 };
 
 export const HERO_DATA = {
-  title: "PRO-IA",
+  title: "Agent PRO",
   subtitle:
     "El sistema agéntico de backoffice que simplifica la operación comercial, logística y financiera de tu empresa.",
   metrics: [
